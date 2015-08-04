@@ -32,6 +32,7 @@ from django.core.mail import send_mail, EmailMultiAlternatives
 from collections import defaultdict
 import string, random
 from django.forms.widgets import CheckboxSelectMultiple
+from django.db import transaction
 
 
 
@@ -845,10 +846,11 @@ def increment_grade(request):
         tconfirmation = request.POST['textConfirmation']
         if tconfirmation == "INCREMENT":
             a = Student.objects.all()
-            for eachStudent in a:
-                currentStudent = Student.objects.select_for_update().get(pk=eachStudent.id)
-                currentStudent.grade = eachStudent.get_next_grade
-                currentStudent.save()
+            with transaction.atomic():
+                for eachStudent in a:
+                    currentStudent = Student.objects.select_for_update().get(pk=eachStudent.id)
+                    currentStudent.grade = eachStudent.get_next_grade
+                    currentStudent.save()
             return redirect('/school/thanks')
             
     s_list = Student.objects.select_related()
