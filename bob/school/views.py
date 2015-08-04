@@ -385,7 +385,7 @@ def GetFamilyScheduleReport(request, family_id=None, csv=None):
                 'teacher_list': teacher_list,
                 'periods': periods,
             })
-            lResponse = HttpResponse(mimetype="text/csv")
+            lResponse = HttpResponse(content_type="text/csv")
             lResponse['Content-Disposition'] = "attachment; filename=family_schedule.csv"
             lResponse.write(lCsvFile)
             return lResponse
@@ -499,7 +499,7 @@ def AllCourseEnrollList(request, csv=None):
         #schedule_array=sorted(schedule_array.iteritems(), key=lambda (k,v): (schedule_array[k]['period'], schedule_array[k]['course']))
         if csv:
             #import xlwt
-            #response = HttpResponse(mimetype='application/ms-excel')
+            #response = HttpResponse(content_type='application/ms-excel')
             #response['Content-Disposition'] = 'attachment; filename=attendance_sheets_report.xls'
             #wb = xlwt.Workbook(encoding='utf-8')
             #ws = wb.add_sheet("Attendance")
@@ -539,7 +539,7 @@ def AllCourseEnrollList(request, csv=None):
                 'schedule': schedule,
                 'schedule_array': schedule_array,
             })
-            lResponse = HttpResponse(mimetype="text/csv")
+            lResponse = HttpResponse(content_type="text/csv")
             lResponse['Content-Disposition'] = "attachment; filename=attendance_sheets_report.csv"
             lResponse.write(lCsvFile)
             return lResponse
@@ -910,7 +910,7 @@ def GetAttendanceSheets(request, family_id=None, csv=None):
                 'assistants_dict': assistants_dict,
                 'teachers_dict': teachers_dict,
             })
-            lResponse = HttpResponse(mimetype="text/csv")
+            lResponse = HttpResponse(content_type="text/csv")
             lResponse['Content-Disposition'] = "attachment; filename=attendance_sheets_report.csv"
             lResponse.write(lCsvFile)
             return lResponse
@@ -961,7 +961,7 @@ def GetAttendanceSheets(request, family_id=None, csv=None):
 #                'schedule': schedule,
 #               'schedule_array': schedule_array,
 #            })
-#            lResponse = HttpResponse(mimetype="text/csv")
+#            lResponse = HttpResponse(content_type="text/csv")
 #            lResponse['Content-Disposition'] = "attachment; filename=attendance_sheets_report.csv"
 #            lResponse.write(lCsvFile)
 #            return lResponse
