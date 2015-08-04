@@ -13,7 +13,7 @@
   <thead>
       <tr>
 	<th>Event
-	    <a href="{% url 'event_new' %}"><i class="icon-plus-sign"></i></a>
+	    <a href="{% url 'event_new' %}"><i class="glyphicon glyphicon-plus"></i></a>
 	</th>
         <th>Date / Time</th><th>Registration Ends</th><th>Cost / Max</th><th>Action</th>
       </tr>
@@ -43,10 +43,10 @@
 	  {{ event.event_max_size }} people
       </td>
      <td>
-	<a href="{% url 'email_event' event.id %}">  <i class="icon-envelope"></i></a>
+	<a href="{% url 'email_event' event.id %}">  <i class="glyphicon glyphicon-envelope"></i></a>
          {% if user.family = event.family  %}
-           <a href="{% url "event_edit" event.id %}"><i class="icon-edit"></i></a>
-           <a href="{% url "event_delete" event.id %}"><i class="icon-trash"></i></a>
+           <a href="{% url "event_edit" event.id %}"><i class="glyphicon glyphicon-edit"></i></a>
+           <a href="{% url "event_delete" event.id %}"><i class="glyphicon glyphicon-trash"></i></a>
 	 {% endif %}
       </td>
       <tr>
@@ -85,7 +85,7 @@
 	     <tr>
 	       <td>
 	         {% if user.family = enrollee.family %}
-		   <a href="{% url 'event_delete_enrollment' enrollee.id %}"><i class="icon-trash"></i></a>
+		   <a href="{% url 'event_delete_enrollment' enrollee.id %}"><i class="glyphicon glyphicon-trash"></i></a>
 		 {% endif %}
 	       </td>
 	       <td>{{ enrollee.family }}</td>
