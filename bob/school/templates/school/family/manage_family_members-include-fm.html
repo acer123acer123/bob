@@ -102,18 +102,6 @@
 		{{ form.error }}
 		{{ form.email_list }} 
 	    </div>
-  	    <div class="btn-group">
-	        <a class="btn btn-info" data-toggle="dropdown" href="#">
-		    Email List Descriptions
-	            <span class="caret"></span>
-		</a>
-		<ul class="dropdown-menu">
-	     	{% for e in emaillist %}
-	    	    <li><b>{{ e.name }}</b>: {{ e.description }}</li>
-	        {% endfor %}
-		</ul>
-	    </div>
-
 
 
 </div><!--class cols-xs-12-->

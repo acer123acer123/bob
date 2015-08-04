@@ -31,9 +31,18 @@ The "Main" tab contains information about your household.<br>
 Typically this will include the main address and phone number.<br>
 The other tabs are for each member of your fmaily.<br>
 If the address is the same as the "Main" address then  you can leave these fields blank for each child.<br>
+  <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+    Email List Descriptions
+  </button>
+  <div class="collapse" id="collapseExample">
+    <div class="well">
+          {% for e in emaillist %}
+               <b>{{ e.name }}</b>: {{ e.description }}<br>
+          {% endfor %}
+     </div>
+  </div>
 </div>
   <button type="submit" class="btn btn-success">Save Changes</button>
-
 
   {{ family_formset.management_form }}
 

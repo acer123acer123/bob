@@ -1,9 +1,10 @@
 {% load mytemplatetags %}
-    <div class="tab-pane " id="fm-{{ forloop.counter0 }}-first_name">  
+    <div class="tab-pane {{ first_tab }}" id="fm-{{ forloop.counter0 }}-first_name">  
       <input type="hidden" id="id_form-{{ forloop.counter0 }}-family_member" name="form-{{ forloop.counter0 }}-family_member" value="{{ form.family_member.value }}"/>
       {% for hidden in form.hidden_fields %}
         {{ hidden }}
       {% endfor %}
+
 
       <div class="container" id="container1">
         <div class="row centered-form">
@@ -16,11 +17,8 @@
 
               <div class="panel-body">
 
-                <div class="inv class="form-group {% if form.grade.errors %}has-error {% endif %}">
-                  <input type="text" name="{{ form.grade.html_name}}"
-                    id="{{ form.grade.id_for_label}}" class="form-control input-sm"
-                    placeholder="Grade" value="{{ form.grade.value }}"
-                   >
+                <div class="form-group">Grade
+	          {{ form.grade}}
                 </div>
 
                 <div class="inv class="form-group {% if form.birth_date.errors %}has-error {% endif %}">
@@ -31,17 +29,17 @@
                 </div>
 
                 <div class="inv class="form-group {% if form.food_allergies.errors %}has-error {% endif %}">
-                  <input type="text" name="{{ form.food_allergies.html_name}}"
-                    id="{{ form.food_allergies.id_for_label}}" class="form-control input-sm"
+                  <textarea name="{{ form.food_allergies.html_name}}"
+                    id="{{ form.food_allergies.id_for_label}}" class="form-control" rows=2
                     placeholder="Allergies" value="{{ form.food_allergies.value }}"
-                   >
+                   ></textarea>
                 </div>
 
                 <div class="inv class="form-group {% if form.notes.errors %}has-error {% endif %}">
-                  <input type="text" name="{{ form.notes.html_name}}"
-                    id="{{ form.notes.id_for_label}}" class="form-control input-sm"
+                  <textarea name="{{ form.notes.html_name}}"
+                    id="{{ form.notes.id_for_label}}" class="form-control" rows=5
                     placeholder="Notes" value="{{ form.notes.value }}"
-                   >
+                   ></textarea>
                 </div>
 
 </div><!--panel-body-->

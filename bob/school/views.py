@@ -256,6 +256,9 @@ class StudentBaseFormSet(BaseModelFormSet):
         #form.fields['emergency_notes'].widget.attrs['rows'] = '2'
 
 def manage_student(request):
+    student_name_dict = {}
+    for a in Student.objects.filter(family_member__family_id=request.user.family.id):
+        student_name_dict[a.family_member.id]=a.family_member.first_name
     StudentInlineFormSet = modelformset_factory(Student, extra=0, formset=StudentBaseFormSet, exclude=('schedule',))
     if request.method == "POST":
         student_formset = StudentInlineFormSet(request.POST, request.FILES,
@@ -265,9 +268,6 @@ def manage_student(request):
             return redirect('/school/thanks/')
     else:
         student_formset = StudentInlineFormSet(queryset=Student.objects.filter(family_member__family_id=request.user.family.id))
-        student_name_dict = {}
-        for a in Student.objects.filter(family_member__family_id=request.user.family.id):
-            student_name_dict[a.family_member.id]=a.family_member.first_name
 
     context = RequestContext(request,{
         'student_formset': student_formset,

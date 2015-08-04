@@ -1,15 +1,26 @@
 {% extends 'school/base.html' %}
-{% load crispy_forms_tags %}
 {% load mytemplatetags %}
+{% load set_var %}
 {% block title %}{{object_name}} Form{% endblock %}
 
 {% block content %}
+
+<script type="text/javascript">
+    jQuery(function($){
+        $('#id_form-0-birth_date').mask("99/99/9999");
+        $('#id_form-1-birth_date').mask("99/99/9999");
+        $('#id_form-2-birth_date').mask("99/99/9999");
+        $('#id_form-3-birth_date').mask("99/99/9999");
+        $('#id_form-4-birth_date').mask("99/99/9999");
+        $('#id_form-5-birth_date').mask("99/99/9999");
+        });
+</script>
+
 <form method="post" action="" class="form-inline">
   <div class="alert alert-info">
     Use this page to update your student information.  <br>
   </div>
   <button type="submit" class="btn btn-success">Save Changes</button>
-
   {{ student_formset.management_form }}
 
     <ul class="nav nav-tabs" role="tablist">
@@ -19,9 +30,11 @@
     </ul>
 
     <div id="content" class="tab-content">
+      {% set first_tab = "active" %}
 
       {% for form in student_formset.forms %}
          {% include 'school/family/manage_student-s.html' %}
+         {% set first_tab = "" %}
       {% endfor %}
     </div><!--tab-content-->
 

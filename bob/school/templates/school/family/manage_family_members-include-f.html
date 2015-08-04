@@ -87,10 +87,10 @@
                       </div>
 
                       <div class="form-group {% if form.emergency_notes.errors %}has-error {% endif %}">
-                        <input type="text" name="{{ form.emergency_notes.html_name}}" 
-                            id="{{ form.emergency_notes.id_for_label}}" class="form-control input-sm" 
+                        <textarea name="{{ form.emergency_notes.html_name}}" 
+                            id="{{ form.emergency_notes.id_for_label}}" class="form-control" cols="2"
                             placeholder="Emergency Notes" value="{{ form.emergency_notes.value }}"
-                        >
+                        ></textarea>
                       </div>
 
 </div><!--class cols-xs-12-->
