@@ -1,0 +1,31 @@
+{% extends 'school/base.html' %}
+{% load mytemplatetags %}
+
+{% block title %}{{object_name}} Copy Class Enrollment {{cc_name}}{% endblock %}
+{% block content %}
+<div class="alert alert-info">
+Use this page to copy the student enrollments from one class to another.
+<br>This is useful for a class that is scheduled to span multiple semesters.
+<p>
+To use this, you must first create a schedule in the "Schedule: Master Schedule" on the admin page.
+
+</div>
+<h1>Copy Class Enrollment - Step 2</h1>
+Select the Semester that contains the class that you are copying from and copying to. 
+<br> Both can be set to the same semester if necessary.
+<p>
+<form action="" method="post">{% csrf_token %}
+  {{form}}
+<p>
+<div class="alert alert-error">
+When you click "Next" it will perform the following activites:
+<ul>
+  <li>Remove ALL students from the New Class that you select</li>
+  <li>Copy ALL students from the Original Class into the New Class</li>
+</ul>
+<b>There is no "UNDO"</b><p>
+<input type="submit" value="Next" />
+</div>
+</form>
+{% endblock %}
+</form>

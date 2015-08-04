@@ -1,0 +1,3 @@
+source ~/.bashrc
+source /home/playflc/play.flchomegroup.com/env/bin/activate
+echo "from school.models import *"

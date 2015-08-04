@@ -1,0 +1,55 @@
+{% extends 'school/base.html' %}
+{% load url from future %}
+
+{% block content %}
+<div class="alert alert-info">
+This page is used to impersonate a user. 
+<p>
+<b>As you can imagine, there are ethical implications
+to doing this. Please be aware of them.</b>
+<p>
+Click on the person's id to impersonate them.
+</div>
+
+<h3>Search Users {% if query %}- Page {{ page_number }}{% endif %}</h3>
+<form action="{% url 'impersonate-search' %}" method="GET">
+Enter a portion of a username:<br />
+<input type="text" name="q" value="{% if query %}{{ query }}{% endif %}"><br />
+{{redirect_field}}
+<input type="submit" value="Search"><br />
+</form>
+
+<hr>
+{% if page.object_list %}
+<table class="table  table-hover table-condensed table-borderless">
+  <thead>
+      <tr><th>Username</th>
+          <th>Name</th>
+          <th>Role</th>
+      </tr>
+  </thead>
+    {% for user in page.object_list %}
+      <tr>
+	<td>
+	  <a href="{% url 'impersonate-start' user.id %}{{redirect}}">{{ user.username }}</a> 
+	</td>
+	<td>
+	    {{ user.first_name }} {{ user.last_name }} ({{ user.family }})
+  	</td> 
+	<td>
+	    {{ user.family_member_role }}
+	</td>
+      </tr>
+    {% endfor %}
+</table>
+{% endif %}
+
+{% if page.has_previous %}
+<a href="?page={{ page.previous_page_number }}"><i class="icon-backward"></i></a> &nbsp; 
+{% endif %}
+
+{% if page.has_next %}
+<a href="?page={{ page.next_page_number }}"><i class="icon-forward"></i></a> &nbsp; 
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,62 @@
+{% load mytemplatetags %}
+
+{% block title %}{{object_name}} {{cc_name}}{% endblock %}
+
+{% block head %}
+<script type='text/javascript' src='/static/catalog.js'></script>
+{% endblock %}
+{% block content %}
+<table border=0 width="100%">
+  <tr>
+  {% for object in te %}
+    {% ifchanged object.id %}
+      <td colspan=5>
+	<hr>
+	<b>{{ object.course_catalog }} <a href="{% url 'email_class' object.id %}"><i class="icon-envelope"></i></a><br>
+	{{ object.semester_period }} <br>
+	{{ object.course_location }}</b>
+      </td>
+   </tr>
+   <tr>
+      <td colspan=2><b>Teachers:</b><br>
+        {% for a in object.teacher.all %}
+	    {{ a }}<br>
+	{% endfor %}
+      </td>
+      <td colspan=2 valign="top"><b>Assistants: {{ object.get_num_assistants }}</b><br>
+	{% for a in object.get_assistant_list %}
+	    {{ a.assistant }}<br>
+	{% endfor %}
+      </td>
+   </tr>
+   <tr>
+      <td><b>Students: {{ object.get_num_students }}</b></td>
+   </tr>
+   <tr>
+   <td colspan=4><table class="table table-hover"><tr>
+      <td><b>Name</b></td><td><b>Grade</b></td>
+      <td><b>Age</b></td><td><b>Emergency</b></td><td><b>Allergies</b></td>
+	{% for a in object.get_student_list %}
+          <tr>
+	    <td>{{ a.student }}</td>
+	    <td>{{ a.student.grade }}</td>
+	    <td>{{ a.student.age }}</td>
+	    <td>{{ a.student.family_member.family.emergency_name }}<br>
+		{{ a.student.family_member.family.emergency_phone_number }}<br>
+	        <i>{{ a.student.family_member.family.emergency_notes}}</i></td>
+	    <td>{{ a.student.food_allergies }}</td>
+	  </tr>
+	{% endfor %}
+   	</tr></table>
+   </td>
+   </tr>
+    {% endifchanged %}
+   <tr>
+      <td>
+    	{{ object.student }}<br>
+      </td>
+   </tr>
+  {% endfor %}
+</table>
+
+{% endblock %}

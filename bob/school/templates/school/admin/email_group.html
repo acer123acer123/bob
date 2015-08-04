@@ -1,0 +1,22 @@
+{% extends 'school/base.html' %}
+{% load mytemplatetags %}
+
+{% block title %}{{object_name}} Email Class {{cc_name}}{% endblock %}
+
+{% block head %}
+<script type='text/javascript' src='/static/catalog.js'></script>
+{% endblock %}
+{% block content %}
+<div class="alert alert-info">
+Use this page to email the family members in the select email list. 
+<br>An email will be sent to each family member that has selected that email list.
+<p>
+You can see what your family member emails are by clicking on the 
+<br>Family Member Profile link on the left side of the screen.
+
+</div>
+<form action="" method="post">{% csrf_token %}
+{{ form.as_p }}
+<input type="submit" value="Send Email" />
+</form>
+{% endblock %}

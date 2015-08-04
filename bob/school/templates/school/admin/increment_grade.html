@@ -1,0 +1,44 @@
+{% extends 'school/base.html' %}
+{% load mytemplatetags %}
+
+{% block title %}{{object_name}} Increment Student Grades {{cc_name}}{% endblock %}
+
+{% block head %}
+<script type='text/javascript' src='/static/catalog.js'></script>
+{% endblock %}
+{% block content %}
+<div class="alert alert-info">
+Use this page to increment the current grade for <b>every</b> student.
+<p>
+Verify this list before you click the button at the bottom of the page.
+
+</div>
+<div class="alert alert-error">
+EVERY STUDENT MUST HAVE A CURRENT AND NEXT GRADE LISTED.
+<p><br>
+If they don't, then the update will fail!
+</div>
+<h1>Increment Student Grades</h1>
+<table class="table  table-hover table-condensed table-borderless">
+  <thead>
+      <tr><th>Child</th><th>Current</th><th>Next</th>
+  </thead>
+  {% for s in s_list %}
+    <tbody>
+	<tr>
+	    <td>{{ s.family_member }}</td>
+	    <td>{{ s.grade }}</td>
+	    <td>{{ s.grade.next_grade }}</td>
+	</tr>
+    </tbody>
+   {% endfor %}
+ </div>
+</table>
+<form action="" method="post">{% csrf_token %}
+   Type "INCREMENT" in the below text box and then click the "Increment Grades" button
+   <br>
+   <input type="text" name="textConfirmation" value=""/>
+   <br>
+   <input type="submit" value="Increment Grades" />
+</form>
+{% endblock %}

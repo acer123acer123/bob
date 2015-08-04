@@ -1,0 +1,120 @@
+{% extends 'school/base.html' %}
+{% block title %}{{object_name}} Form{% endblock %}
+
+{% block content %}
+<script type="text/javascript">
+    jQuery(function($){
+        $('#id_phone_number').mask("(999) 999-9999");
+        $('#id_cell_phone_number').mask("(999) 999-9999");
+        });
+</script>
+<div class="alert alert-info">
+Use this page to add your family information.  <br>
+You will not be able to log into the site until the site administrator
+approves this request. <br>
+You will then receive an email stating that your account has been activated. 
+</div>
+<form action='' method='post'>{% csrf_token %}
+<input type='hidden' name='name' value=''>
+ <div class="container" id="container1">
+        <div class="row centered-form">
+            <div class="col-xs-12 col-sm-8 col-md-8 col-sm-offset-2 col-md-offset-1">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title text-center">Please Register</h3>
+                    </div>
+                    <div class="panel-body">
+                        <form role="form">
+                            <div class="form-group {% if form.first_name.errors %}has-error {% endif %}">
+                                <input type="text" name="{{ form.first_name.html_name}}" id="{{ form.first_name.id_for_label}}" class="form-control input-sm" placeholder="First Name">
+                            </div>
+
+                            <div class="form-group {% if form.last_name.errors %}has-error {% endif %}">
+                                <input type="text" name="{{ form.last_name.html_name}}" id="{{ form.last_name.id_for_label}}" class="form-control input-sm" placeholder="Last Name">
+                            </div>
+
+                            <div class="form-group {% if form.email_address.errors %}has-error {% endif %}">
+                                <input type="email" name="{{ form.email_address.html_name}}" id="{{ form.email_address.id_for_label}}" class="form-control input-sm" placeholder="Email Address">
+                            </div>
+
+                            <div class="form-group {% if form.address1.errors %}has-error {% endif %}">
+                                <input type="text" name="{{ form.address1.html_name}}" id="{{ form.address1.id_for_label}}" class="form-control input-sm" placeholder="Address">
+                            </div>
+
+                            <div class="form-group">
+                                <input type="text" name="{{ form.address2.html_name}}" id="{{ form.address2.id_for_label}}" class="form-control input-sm" placeholder="Address 2">
+                            </div>
+
+                            <div class="form-group {% if form.city.errors %}has-error {% endif %}">
+                                <input type="text" name="{{ form.city.html_name}}" id="{{ form.city.id_for_label}}" class="form-control input-sm" placeholder="City">
+                            </div>
+
+                            <div class="row">
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                     <div class="form-group {% if form.state.errors %}has-error {% endif %}">
+                                        <input type="text" maxlength="2" name="{{ form.state.html_name}}" id="{{ form.state.id_for_label}}" class="form-control input-sm" placeholder="State">
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                     <div class="form-group {% if form.zip_code.errors %}has-error {% endif %}">
+                                        <input type="text" name="{{ form.zip_code.html_name}}" id="{{ form.zip_code.id_for_label}}" class="form-control input-sm" placeholder="Zip">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <input type="text" name="{{ form.phone_number.html_name}}" id="{{ form.phone_number.id_for_label}}" class="form-control input-sm" placeholder="Phone">
+                            </div>
+
+                            <div class="form-group {% if form.cell_phone_number.errors %}has-error {% endif %}">
+                                <input type="text" name="{{ form.cell_phone_number.html_name}}" id="{{ form.cell_phone_number.id_for_label}}" class="form-control input-sm" placeholder="Cell">
+                            </div>
+
+                            <div class="row">
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <input type="password" name="password" id="password" class="form-control input-sm" placeholder="Password">
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <input type="password" name="password_confirmation" id="password_confirmation" class="form-control input-sm" placeholder="Confirm Password">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group"> Gender
+			      {{ form.gender}}
+                            </div>
+
+                            <div class="form-group">Reason for Registration<br>
+			      {{ form.reason_for_registration }}
+                            </div>
+
+
+                            <input type="submit" value="Register" class="btn btn-info btn-block">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<div class="alert alert-info">
+Only click the Submit button once. It may take 30 seconds to complete.
+Do not press the refresh button or the back button on your browser.
+</div>
+</form>
+
+<style>
+
+.centered-form {
+    margin-top: 120px;
+    margin-bottom: 120px;
+}
+
+.centered-form .panel {
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: rgba(0, 0, 0, 0.3) 20px 20px 20px;
+}
+</style>
+{% endblock %}

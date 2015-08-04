@@ -1,0 +1,114 @@
+{% extends 'school/base.html' %}
+
+{% block title %}Course List {{cc_name}}{% endblock %}
+
+{% block head %}
+{% endblock %}
+
+{% block content %}
+<div class="alert alert-info">
+This is a list of your courses on the system. They may be from past or
+future semesters but are shown here for a couple of reasons.
+<br>
+You can edit your courses and also get ideas for additional courses.
+<p><br>
+You can also click on the <i class="glyphicon glyphicon-plus"></i> below to add a new course 
+to this catalog. It won't automatically be listed in the schedule so feel free to 
+add as many as you want.
+<p><br>
+<a href="/static/documents/New_Course.pdf">Add a Course Guide</a> 
+</div>
+
+<h1>Your Course Catalog</h1>
+<form method="GET" action="CatalogAll">
+	
+  <div class="col-lg-3">
+    <div class="input-group">
+	  <input type="hidden" name="page" value="1">
+      <input type="text" name="s" class="form-control" placeholder="Search for...">
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="button">Go!</button>
+      </span>
+    </div><!-- /input-group -->
+  </div><!-- /.col-lg-3 -->
+</form>
+
+<table class="table  table-hover table-condensed">
+  <thead>
+      <tr><th>Course Catalog 
+	{% if user.teacher %}
+	    <a href="{% url 'coursecatalog_add' %}"><i class="glyphicon glyphicon-plus"></i></a>
+	 {% endif %} 
+	 </th>
+          <th>Teacher</th><th>Min/Max</th><th>Grade</th><th>Type</th><th>Action</th></tr>
+  </thead>
+
+  <tbody>
+
+    {% for object in object_list %}
+
+     <tr>
+      <td>              
+
+            <a data-toggle="collapse" data-parent="#accordion2" href="#AC{{ object.id }}">
+              {{object}}
+            </a>
+
+      </td>
+      <td>
+          {{ object.teacher.family_member.full_name }}
+      </td>
+      <td>
+	  {{object.course_min_size}}/{{object.course_max_size}}
+      </td>
+      <td>
+	{% for grade in object.semester_grade.all %}
+	   {{ grade }}<br>
+	{% endfor %} 
+      </td>
+      <td>
+	    {{object.course_type}}
+ 	    <br>Course: {{ object.fee_course }}
+	    <br>Material: {{ object.fee_material }}
+      </td>
+      <td>
+	      <a href="{{object.get_absolute_url}}"><i class="glyphicon glyphicon-th-list"></i></a>
+          {% if user.family = object.teacher.family_member.family  %}
+              <a href="{{object.get_update_url}}"><i class="glyphicon glyphicon-edit"></i></a>  
+              <a href="{{object.get_delete_url}}"><i class="glyphicon glyphicon-trash"></i></a>
+          {% endif %}
+          
+      </td>
+     </tr>
+
+      <tr>
+        <td colspan=6>
+          <div id="AC{{ object.id }}" class="panel-collapse collapse">
+          
+	    {{object.course_desc|safe}}
+      
+          </div><!--panel-collapse-->
+        </td>
+      </tr>
+
+    {% endfor %}
+
+  </tbody>
+
+</table>
+
+Page List:
+<nav>
+  <ul class="pagination">
+    {% for page in page_obj.paginator.page_range %}
+       {% ifequal page page_obj.number %}
+          <li class="active"><a href="?page={{ page }}&s={{ request.GET.s }}">{{ page }}</a></li>
+       {% else %}
+          <li><a href="?page={{ page }}&s={{ request.GET.s }}">{{ page }}</a></li>
+       {% endifequal %}
+    {% endfor %}
+  </ul>
+</nav>
+{% endblock %}
+
+

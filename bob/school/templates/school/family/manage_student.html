@@ -1,0 +1,43 @@
+{% extends 'school/base.html' %}
+{% load crispy_forms_tags %}
+{% load mytemplatetags %}
+{% block title %}{{object_name}} Form{% endblock %}
+
+{% block content %}
+<form method="post" action="" class="form-inline">
+  <div class="alert alert-info">
+    Use this page to update your student information.  <br>
+  </div>
+  <button type="submit" class="btn btn-success">Save Changes</button>
+
+  {{ student_formset.management_form }}
+
+    <ul class="nav nav-tabs" role="tablist">
+      {% for form in student_formset.forms %}
+          <li role="repsentation"><a href="#fm-{{ forloop.counter0 }}-first_name" role="tab" data-toggle="tab">{{ student_name_dict|get_item:form.family_member.value }}</a></li>
+      {% endfor %}
+    </ul>
+
+    <div id="content" class="tab-content">
+
+      {% for form in student_formset.forms %}
+         {% include 'school/family/manage_student-s.html' %}
+      {% endfor %}
+    </div><!--tab-content-->
+
+{% csrf_token %}
+</form>
+<hr>
+<style>
+
+.centered-form {
+    margin-top: 10px;
+    margin-bottom: 120px;
+}
+
+.centered-form .panel {
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: rgba(0, 0, 0, 0.3) 20px 20px 20px;
+}
+</style>
+{% endblock %}

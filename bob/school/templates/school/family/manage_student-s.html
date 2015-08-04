@@ -1,0 +1,53 @@
+{% load mytemplatetags %}
+    <div class="tab-pane " id="fm-{{ forloop.counter0 }}-first_name">  
+      <input type="hidden" id="id_form-{{ forloop.counter0 }}-family_member" name="form-{{ forloop.counter0 }}-family_member" value="{{ form.family_member.value }}"/>
+      {% for hidden in form.hidden_fields %}
+        {{ hidden }}
+      {% endfor %}
+
+      <div class="container" id="container1">
+        <div class="row centered-form">
+          <div class="col-xs-12 col-sm-8 col-md-4 col-sm-offset-2 col-md-offset-4">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title text-center">{{ student_name_dict|get_item:form.family_member.value }}</h3>
+              </div>
+
+
+              <div class="panel-body">
+
+                <div class="inv class="form-group {% if form.grade.errors %}has-error {% endif %}">
+                  <input type="text" name="{{ form.grade.html_name}}"
+                    id="{{ form.grade.id_for_label}}" class="form-control input-sm"
+                    placeholder="Grade" value="{{ form.grade.value }}"
+                   >
+                </div>
+
+                <div class="inv class="form-group {% if form.birth_date.errors %}has-error {% endif %}">
+                  <input type="text" name="{{ form.birth_date.html_name}}"
+                    id="{{ form.birth_date.id_for_label}}" class="form-control input-sm"
+                    placeholder="Birth Date" value="{{ form.birth_date.value }}"
+                   >
+                </div>
+
+                <div class="inv class="form-group {% if form.food_allergies.errors %}has-error {% endif %}">
+                  <input type="text" name="{{ form.food_allergies.html_name}}"
+                    id="{{ form.food_allergies.id_for_label}}" class="form-control input-sm"
+                    placeholder="Allergies" value="{{ form.food_allergies.value }}"
+                   >
+                </div>
+
+                <div class="inv class="form-group {% if form.notes.errors %}has-error {% endif %}">
+                  <input type="text" name="{{ form.notes.html_name}}"
+                    id="{{ form.notes.id_for_label}}" class="form-control input-sm"
+                    placeholder="Notes" value="{{ form.notes.value }}"
+                   >
+                </div>
+
+</div><!--panel-body-->
+</div><!--panel-->
+</div><!--col-xs-->
+</div><!--row-->
+</div><!--container-->
+</div><!--tab pane-->
+

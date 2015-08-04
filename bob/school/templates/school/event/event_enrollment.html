@@ -1,0 +1,15 @@
+{% extends 'school/base.html' %}
+{% load mytemplatetags %}
+
+{% block title %}{{object_name}} List {{cc_name}}{% endblock %}
+
+{% block head %}
+<script type='text/javascript' src='/static/catalog.js'></script>
+{% endblock %}
+{% block content %}
+<h1>Events</h1>
+<form method="post">{% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Submit" />
+</form>
+{% endblock %}

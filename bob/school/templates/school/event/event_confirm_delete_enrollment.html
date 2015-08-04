@@ -1,0 +1,18 @@
+{% extends 'school/base.html' %}
+{% load mytemplatetags %}
+
+{% block title %}{{object_list}} List {{cc_name}}{% endblock %}
+
+{% block head %}
+<script type='text/javascript' src='/static/catalog.js'></script>
+{% endblock %}
+{% block content %}
+
+<form method="post">{% csrf_token %}
+    Are you sure you want to delete your enrollment record?
+	<br>
+    <input type="submit" value="Submit" />
+</form>
+
+
+{% endblock %}

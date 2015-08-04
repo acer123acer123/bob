@@ -1,0 +1,49 @@
+{% extends 'school/base.html' %}
+{% load mytemplatetags %}
+
+{% block title %}{{object_name}} Active Students {{cc_name}}{% endblock %}
+
+{% block head %}
+<script type='text/javascript' src='/static/catalog.js'></script>
+{% endblock %}
+{% block content %}
+
+<h1>Active Student List</h1>
+<table class="table  table-hover table-condensed table-borderless">
+  <thead>
+      <tr><th>Child</th><th>M/F</th><th>Grade</th><th>Age</th><th>Parent(s)</th>
+	<th>Phone</th><th>Cell</th><th>Email</th><th></th>
+  </thead>
+  {% for s in s_list %}
+    <tbody>
+     {% ifchanged s.grade %}
+	<tr><td><div class="label label-info">{{ s.grade }}</div> </td></tr>
+     {% endifchanged %}
+     
+	<tr>
+	    <td>{{ s.family_member }} 
+	    </td>
+	    <td>{{ s.family_member.gender }}</td>
+	    <td>{{ s.grade }}</td>
+	    <td>{{ s.age }}</td>
+	    <td>
+	    {% for a in s.get_parent_list %}
+	        ({{ a.first_name }})  
+            {% endfor %}
+	    </td>
+	    <td>{{ s.family_member.family.phone_number }}</td>
+	    <td>{{ s.family_member.family.cell_phone_number }}</td>
+	    <td><a href="mailto:{{ s.family_member.family.email_address }}">{{ s.family_member.family.email_address }}</a></td>
+	    <td>{{ f.cell_phone_number }}</td>
+	    <td>{{ f.email_address }}</td>
+	    <td>
+			<a href="{% url 'family_schedule' s.family_member.family.id %}">
+			   <i class="icon-map-marker"></i>
+			</a>
+	    </td>
+	</tr>
+    </tbody>
+   {% endfor %}
+ </div>
+</table>
+{% endblock %}

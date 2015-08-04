@@ -1,0 +1,104 @@
+    <div class="tab-pane active " id="f-{{ forloop.counter0 }}-first_name">
+    <input type="hidden" id="id_f-{{ forloop.counter0 }}-name" name="f-{{ forloop.counter0 }}-name" value="{{ form.name.value }}"/>
+
+       <div class="container" id="container1">
+        <div class="row centered-form">
+           <div class="col-xs-12 col-sm-8 col-md-4 col-sm-offset-2 col-md-offset-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title text-center">{{ form.name.value }} Family</h3>
+                    </div>
+                    <div class="panel-body">
+
+                      <div class="form-group {% if form.address1.errors %}has-error {% endif %}">
+                        <input type="text" name="{{ form.address1.html_name}}" 
+                            id="{{ form.address1.id_for_label}}" class="form-control input-sm" 
+                            placeholder="Address" value="{{ form.address1.value }}"
+                        >
+                      </div>
+
+                      <div class="form-group {% if form.address2.errors %}has-error {% endif %}">
+                        <input type="text" name="{{ form.address2.html_name}}" 
+                            id="{{ form.address2.id_for_label}}" class="form-control input-sm" 
+                            placeholder="Address 2" value="{{ form.address2.value }}"
+                        >
+                      </div>
+
+                      <div class="form-group {% if form.city.errors %}has-error {% endif %}">
+                        <input type="text" name="{{ form.city.html_name}}" 
+                            id="{{ form.city.id_for_label}}" class="form-control input-sm" 
+                            placeholder="City" value="{{ form.city.value }}"
+                        >
+                      </div>
+
+                      <div class="row">
+                       <div class="col-xs-6 col-sm-6 col-md-6"> 
+                         <div class="form-group {% if form.state.errors %}has-error {% endif %}">
+                           <input type="text" name="{{ form.state.html_name}}" 
+                               id="{{ form.state.id_for_label}}" class="form-control input-sm" 
+                               placeholder="State" value="{{ form.state.value }}" maxlength="2"
+                           >
+                          </div>
+                        </div>
+
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                          <div class="form-group {% if form.zip_code.errors %}has-error {% endif %}">
+                            <input type="text" name="{{ form.zip_code.html_name}}" 
+                              id="{{ form.zip_code.id_for_label}}" class="form-control input-sm" 
+                              placeholder="Zip" value="{{ form.zip_code.value }}"
+                            >
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="form-group {% if form.email_address.errors %}has-error {% endif %}">
+                        <input type="email" name="{{ form.email_address.html_name}}" 
+                            id="{{ form.email_address.id_for_label}}" class="form-control input-sm" 
+                            placeholder="email" value="{{ form.email_address.value }}"
+                        >
+                      </div>
+
+                      <div class="form-group {% if form.phone_number.errors %}has-error {% endif %}">
+                        <input type="text" name="{{ form.phone_number.html_name}}" 
+                            id="{{ form.phone_number.id_for_label}}" class="form-control input-sm" 
+                            placeholder="Phone" value="{{ form.phone_number.value }}"
+                        >
+                      </div>
+
+                      <div class="form-group {% if form.cell_phone_number.errors %}has-error {% endif %}">
+                        <input type="text" name="{{ form.cell_phone_number.html_name}}" 
+                            id="{{ form.cell_phone_number.id_for_label}}" class="form-control input-sm" 
+                            placeholder="Cell" value="{{ form.cell_phone_number.value }}"
+                        >
+                      </div>
+
+                      <div class="form-group {% if form.emergency_name.errors %}has-error {% endif %}">
+                        <input type="text" name="{{ form.emergency_name.html_name}}" 
+                            id="{{ form.emergency_name.id_for_label}}" class="form-control input-sm" 
+                            placeholder="Emergency Contact" value="{{ form.emergency_name.value }}"
+                        >
+                      </div>
+
+                      <div class="form-group {% if form.emergency_phone_number.errors %}has-error {% endif %}">
+                        <input type="text" name="{{ form.emergency_phone_number.html_name}}" 
+                            id="{{ form.emergency_phone_number.id_for_label}}" class="form-control input-sm" 
+                            placeholder="Emergency Phone" value="{{ form.emergency_phone_number.value }}"
+                        >
+                      </div>
+
+                      <div class="form-group {% if form.emergency_notes.errors %}has-error {% endif %}">
+                        <input type="text" name="{{ form.emergency_notes.html_name}}" 
+                            id="{{ form.emergency_notes.id_for_label}}" class="form-control input-sm" 
+                            placeholder="Emergency Notes" value="{{ form.emergency_notes.value }}"
+                        >
+                      </div>
+
+</div><!--class cols-xs-12-->
+	{% for hidden in form.hidden_fields %}
+    	    {{ hidden }}
+	{% endfor %}
+</div><!--panel-body-->
+</div><!--panel-->
+</div><!--row-->
+</div><!--container-->
+</div><!--tab pane-->

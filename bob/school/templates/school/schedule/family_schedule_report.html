@@ -1,0 +1,57 @@
+{% extends 'school/base.html' %}
+{% load mytemplatetags %}
+
+{% block title %}{{object_name}} Family Schedule {{cc_name}}{% endblock %}
+
+{% block head %}
+<script type='text/javascript' src='/static/catalog.js'></script>
+{% endblock %}
+{% block content %}
+
+  <table class="table table-hover">
+  <tr class="info"> 
+    <td>Student</td>
+  {% for per in periods %}
+    <td>{{ per }}</td>
+  {% endfor %}
+  </tr>
+<tbody>
+  {% for student_row in student_list %}
+     <tr><th>{{ student_row.0 }}</th>
+     {% for class in student_row.1 %}
+        <td>{{ class }}</td>
+     {% endfor %}
+     </tr>
+  {% endfor %}
+
+
+  <tr class="info"> 
+    <td>Assistant</td>
+  {% for per in periods %}
+    <td></td>
+  {% endfor %}
+  {% for assistant_row in assistant_list %}
+     <tr><th>{{ assistant_row.0 }}</th>
+     {% for class in assistant_row.1 %}
+        <td>{{ class }}</td>
+     {% endfor %}
+     </tr>
+  {% endfor %}
+
+
+  <tr class="info"> 
+    <td>Teacher</td>
+  {% for per in periods %}
+    <td></td>
+  {% endfor %}
+  </tr>
+  {% for teacher_row in teacher_list %}
+     <tr><th>{{ teacher_row.0 }}</th>
+     {% for class in teacher_row.1 %}
+        <td>{{ class }}</td>
+     {% endfor %}
+     </tr>
+  {% endfor %}
+</tbody>
+
+{% endblock %}

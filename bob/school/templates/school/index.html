@@ -1,0 +1,51 @@
+{% extends 'school/base.html' %}
+{% load static from staticfiles %}
+
+{% block content %}
+{% if is_ie %}
+    <div class="alert alert-error">
+        <b>Your browser is old and not supported on this website. Please upgrade. </b>
+	   <p><a href="http://windows.microsoft.com/en-us/internet-explorer/download-ie">Click here</a> to go
+	   to Microsoft and upgrade your browser.
+        <p>
+    </div>
+{% endif %}
+    <div class="hero-unit">
+ <table cellpadding=2 cellspacing=0 border=1 bgcolor=#dddddd align=center width=100%>
+            <tr valign=top>
+                <td colspan=2 align=center>
+
+		<p>
+                    Welcome to the H.O.M.E. Registration & Enrollment Website<br>
+                    <br>
+                    Registered Families - click on the link in the upper right hand corner to log in.
+                    <br>
+                    This system is used by the Faith Lutheran Church H.O.M.E. Group.<br>
+                    Our vision is to bring honor and glory to our Lord Jesus Christ<br>
+                    by providing a Christian community of learning and support<br>
+                    for homeschool families.<br>
+                    <br>
+                    Family Registration<br>
+                    Is for all families who participate in any H.O.M.E. activities.<br>
+   		    <a href="/school/NewFamilyForm">Click Here to Register Your Family</a></li>
+                    <br>
+                    Unless otherwise stated, events are held at Faith Lutheran Church<br>
+                    37635 Dequindre, Troy, MI 48083<br>
+                    <br>
+                    Registering your family equips you to be able to...<br>
+                    Connect with other homeschooling families in our group<br>
+                    Sign up for special events and field trips<br>
+                    Enroll your children in classes (during your enrollment period and if space is available)<br>
+                    <br>
+                    For more information, please contact Laurie Guidry (FaithKids Director K-2, H.O.M.E. Staff Liaison, Faith Lutheran Church)<br>
+                    at <a href="mailto:lguidry@faithtroy.org">lguidry@faithtroy.org</a> or by phone at 248-689-4713 ext. 221<br>
+                    <br>
+                    If you have questions regarding the use of the H.O.M.E. Registration and Student Enrollment System<br>
+                    or need to report a problem regarding the system, please contact System Coordinator at kimberly.ryan@gmail.com 
+                </td>
+            </tr>
+        </table>
+    <p>
+    </div>
+{% endblock %}
+

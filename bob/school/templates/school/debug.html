@@ -1,0 +1,15 @@
+{% extends 'school/base.html' %}
+
+{% block content %}
+DEBUG SCREEN
+<p>
+{{ original_class }}
+<p>
+{{ new_class }}
+
+{% for a in students %}
+    {{ a }}
+{% endfor %}
+
+{% endblock %}
+

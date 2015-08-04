@@ -1,0 +1,47 @@
+{% load mytemplatetags %}
+
+
+{% block content %}
+  <table border=0>
+  <tr><th colspan=4 align="left">Students</th></tr>
+  {% for object in se %}
+    {% ifchanged object.student %}
+      <tr><th colspan=4>{{ object.student }} </th></tr>
+    {% endifchanged %}
+    <tr>
+      <td></td>
+      <td>{{ object.schedule.semester_period.name }} ... </td>
+      <td>{{ object.schedule.course_location }} ... </td>
+      <td>{{ object.schedule.course_catalog }}</td>
+    </tr>
+  {% endfor %}
+</table>
+<table>
+  <tr><th colspan=4 align="left">Assistants</th></tr>
+  {% for object in sa %}
+    {% ifchanged object.assistant %}
+      <tr><th colspan=4>{{ object.assistant }} </th></tr>
+    {% endifchanged %}
+    <tr>
+      <td></td>
+      <td>{{ object.schedule.semester_period.name }} ... </td>
+      <td>{{ object.schedule.course_location }} ... </td>
+      <td>{{ object.schedule.course_catalog }}</td>
+    </tr>
+  {% endfor %}
+</table>
+<table>
+  <tr><th colspan=4 align="left">Teachers</th></tr>
+  {% for object in te %}
+    {% ifchanged object.course_catalog %}
+      <tr><th colspan=4>{{ object.course_catalog }} </th></tr>
+    {% endifchanged %}
+    <tr>
+      <td></td>
+      <td>{{ object.semester_period.name }} ... </td>
+      <td>{{ object.course_location }} ... </td>
+      <td>{{ object.course_catalog.course_catalog }}</td>
+    </tr>
+  {% endfor %}
+  </table>
+{% endblock %}

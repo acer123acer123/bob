@@ -1,0 +1,56 @@
+{% extends 'school/base.html' %}
+{% block title %}{{object_name}} List {{cc_name}}{% endblock %}
+
+{% block head %}
+{% block javascript %}
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <script src="/static/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/static/custom/jquery.maskedinput.js" type="text/javascript"></script>
+<script type="text/javascript" src="/js/tinymce/tinymce.min.js"></script>
+<script type="text/javascript">
+tinymce.init({
+    selector: "textarea",
+    theme: "modern",
+    menubar: false,
+    resize: "both",
+    image_advtab: true,
+    filemanager_title:"Filemanager" ,
+    external_filemanager_path:"/js/filemanager/",
+    plugins: [
+         "responsivefilemanager advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker",
+         "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+         "save table contextmenu directionality emoticons template paste textcolor"
+   ],
+   toolbar: "insertfile undo redo | styleselect | bold  underline italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link responsivefilemanager | print preview fullpage | forecolor backcolor emoticons",
+   style_formats: [
+        {title: 'Bold text', inline: 'b'},
+        {title: 'Red text', inline: 'span', styles: {color: '#ff0000'}},
+        {title: 'Red header', block: 'h1', styles: {color: '#ff0000'}},
+        {title: 'Example 1', inline: 'span', classes: 'example1'},
+        {title: 'Example 2', inline: 'span', classes: 'example2'},
+        {title: 'Table styles'},
+        {title: 'Table row 1', selector: 'tr', classes: 'tablerow1'}
+    ]
+ });
+</script>
+{% endblock %}
+
+{% endblock %}
+{% block content %}
+<script type="text/javascript">
+    jQuery(function($){
+        $('#id_event_time').mask("99:99 **");
+        });
+</script>
+
+
+<h1>Events</h1>
+
+<form method="post">{% csrf_token %}
+    {{ form}}
+	<br>
+    <input type="submit" value="Submit" />
+
+</form>
+
+{% endblock %}

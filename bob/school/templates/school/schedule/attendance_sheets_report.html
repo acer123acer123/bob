@@ -1,0 +1,42 @@
+{% extends 'school/base.html' %}
+{% load mytemplatetags %}
+
+{% block title %}{{object_name}} Attendance Sheets Report {{cc_name}}{% endblock %}
+
+{% block head %}
+<script type='text/javascript' src='/static/catalog.js'></script>
+{% endblock %}
+{% block content %}
+
+<table class="table table-hover">
+  {% for key, value in schedule_array.items %}
+    <tr class="info">
+      <td><h3>{{ value.course }}</h3>
+	{% for g in value.grades %}
+          <p>{{ g }}
+        {% endfor %}
+	<p>{{ value.period }}
+	<p>{{ value.location }}
+	{% for a in value.teachers %}
+	  <p>{{ a }}
+	{% endfor %}
+      </td>
+    </tr>
+    <tr>
+      <td>
+	{% for s in value.students %}
+	    Student: {{s.0}}  {{ s.1 }} {{ s.2|timesince|truncatewords:1|cut:"." }}
+  	  {% endfor %}
+      </td>
+      <td>
+	{% for a in value.assistants %}
+	    Assistant: {{a}} 
+  	  {% endfor %}
+      </td>
+    </tr>
+{% endfor %}
+</table>
+
+
+
+{% endblock %}

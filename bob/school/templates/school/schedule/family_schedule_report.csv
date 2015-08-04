@@ -1,0 +1,7 @@
+"Role","Name",{% for per in periods %}{{ per|addslashes }},{% endfor %}
+{% for student_row in student_list %}Student,{{ student_row.0 |addslashes }},{% for class in student_row.1 %}{{ class|addslashes }},{% endfor %}
+{% endfor %}
+{% for assistant_row in assistant_list %}Assistant,{{ assistant_row.0 |addslashes }},{% for class in assistant_row.1 %}{{ class|addslashes }},{% endfor %}
+{% endfor %}
+{% for teacher_row in teacher_list %}Teacher,{{ teacher_row.0 |addslashes }},{% for class in teacher_row.1 %}{{ class|addslashes }},{% endfor %}
+{% endfor %}

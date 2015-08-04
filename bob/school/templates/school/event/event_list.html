@@ -1,0 +1,127 @@
+{% extends 'school/base.html' %}
+{% load mytemplatetags %}
+
+{% block title %}Events{% endblock %}
+
+{% block head %}
+<script type='text/javascript' src='/static/catalog.js'></script>
+{% endblock %}
+{% block content %}
+<h1>Events</h1>
+
+<table class="table  table-hover table-condensed table-borderless">
+  <thead>
+      <tr>
+	<th>Event
+	    <a href="{% url 'event_new' %}"><i class="icon-plus-sign"></i></a>
+	</th>
+        <th>Date / Time</th><th>Registration Ends</th><th>Cost / Max</th><th>Action</th>
+      </tr>
+  </thead>
+ <div class="accordion" id="accordion2">
+   <tbody>
+    {% for event in object_list %}
+    <tr>
+      <td>
+        <div class="accordion-group">
+        <div class="accordion-heading">
+        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#AC{{ event.id }}">
+	    {{ event }}
+	    {% if event.is_cancelled %}
+		<span class="badge badge-important">CANCELLED</span>
+   	    {% endif %}
+       </a>
+      </td>
+      <td>
+          {{ event.event_date }} <br> {{ event.event_time }}
+      </td>
+      <td> 
+	  {{ event.event_registration_date }}
+      </td>
+      <td>
+	  {{ event.fee_event }} {{ event.fee_per }}  <br>
+	  {{ event.event_max_size }} people
+      </td>
+     <td>
+	<a href="{% url 'email_event' event.id %}">  <i class="icon-envelope"></i></a>
+         {% if user.family = event.family  %}
+           <a href="{% url "event_edit" event.id %}"><i class="icon-edit"></i></a>
+           <a href="{% url "event_delete" event.id %}"><i class="icon-trash"></i></a>
+	 {% endif %}
+      </td>
+      <tr>
+        <td colspan=6>
+          <div id="AC{{ event.id }}" class="accordion-body collapse ">
+          <div class="accordion-inner">
+    	     Host: {{ event.family }} Family <br>
+	     Email: {{ event.family.email_address }}<br>
+	     Phone: {{ event.family.phone_number }}<br>
+	     Cell: {{ event.family.cell_phone_number }}<p>
+	    {{ event.description|safe }}
+	   <p>
+	   {% if event.event_registration_date < today %}
+	      <i>Registration is closed</i>
+  	   {% elif event.is_cancelled %}
+	      <i>Event is cancelled</i>
+	   {% elif event.get_num_total %}
+	      <i>Event is full</i>
+	   {% else %}
+              <i><a href="{% url 'event_add_enrollment' event.id %}">Join the fun!</a></i>
+	       
+	   {% endif %}
+
+            <hr>
+	    <table style="margin-left:50px;">
+	     <tr>
+	       <th></th>
+	       <th>Family</th>
+	       <th>Phone</th>
+	       <th>Cell</th>
+	       <th>Email</th>
+	       <th>Adults</th>
+	       <th>Children</th>
+	     </tr>
+            {% for enrollee in event.get_enrolled %}
+	     <tr>
+	       <td>
+	         {% if user.family = enrollee.family %}
+		   <a href="{% url 'event_delete_enrollment' enrollee.id %}"><i class="icon-trash"></i></a>
+		 {% endif %}
+	       </td>
+	       <td>{{ enrollee.family }}</td>
+	       <td>{{ enrollee.family.phone_number }}</td>
+	       <td>{{ enrollee.family.cell_phone_number }}</td>
+	       <td>{{ enrollee.family.email_address }}</td>
+	       <td>{{ enrollee.count_adult }}</td>
+	       <td>{{ enrollee.count_child }}</td>
+	     </tr>
+	     <tr>
+	       <td></td><td></td>
+	       <td colspan="3"><i>{{ enrollee.notes }}</i></td>
+	       <td></td>
+	     </tr>
+		 
+	    {% endfor %}
+	     <tr>
+	       <td></td>
+	       <td></td>
+	       <td></td>
+	       <td></td>
+	       <td></td>
+	       <th> {{ event.get_num_adults.num_adults }} </th>
+	       <th> {{ event.get_num_children.num_children }} </th>
+	     </tr>
+	    </table>
+	    <hr>
+	   </div>
+          </div>
+        </div>
+        </div>
+      </td></tr>
+
+    {% endfor %}
+  </tbody>
+ </div>
+</table>
+
+{% endblock %}

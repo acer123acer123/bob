@@ -1,0 +1,21 @@
+{% load mytemplatetags %}
+{% for key, value in schedule_array.items %}
+{{ value.course |addslashes }}
+{{ value.location |addslashes }},{{  value.period  }}
+"Grade(s):",{%for g in value.grades %}
+,{{g}}{%endfor%}
+,{% for sd in semester_dates%}{{sd.class_date}},{%endfor%}
+"Instructor:",{% for t in value.teachers %}
+,{{ t|addslashes }}{%endfor%}
+"Assistant(s):",{% for a in value.assistants %}
+,{{ a|addslashes }}{%endfor%}
+"Students:",{% for s in value.students %}
+,{{ s.0|addslashes }}{%endfor%}
+
+
+
+
+
+{%endfor%}
+
+

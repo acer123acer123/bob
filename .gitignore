@@ -1,0 +1,9 @@
+mailgun.py
+*.pyc
+settings.py
+env
+public
+*.DS_Store
+__pycache__
+logs
+tmp

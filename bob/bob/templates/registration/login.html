@@ -1,0 +1,24 @@
+{% extends "school/base.html" %}
+
+{% block head %}
+<script type='text/javascript' src='/static/catalog.js'></script>
+{% endblock %}
+
+{% block content %}
+
+  {% if form.errors %}
+    <p class="error">Sorry, that's not a valid username or password</p>
+  {% endif %}
+
+  <form action="" method="post">
+    <label for="username">User name:</label>
+    <input type="text" name="username" value="" id="username">
+    <label for="password">Password:</label>
+    <input type="password" name="password" value="" id="password">
+
+    <input type="submit" value="login" />
+    <br><a href="{% url 'django.contrib.auth.views.password_reset' %}">Forgot your user name and or password?</a>
+{% csrf_token %} 
+  </form>
+
+{% endblock %}

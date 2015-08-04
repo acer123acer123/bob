@@ -1,0 +1,51 @@
+{% extends 'school/base.html' %}
+{% load mytemplatetags %}
+{% load crispy_forms_tags %}
+
+{% block title %}Add / Edit Course{% endblock %}
+{% block head %}
+{% block javascript %}
+
+    <script src="http://code.jquery.com/jquery.js"></script>
+<script type="text/javascript" src="/static/js/tinymce/tinymce.min.js"></script>
+<script type="text/javascript">
+tinymce.init({
+    selector: "textarea",
+    theme: "modern",
+    menubar: false,
+    resize: "both",
+    image_advtab: true,
+    filemanager_title:"Filemanager" ,
+    external_filemanager_path:"/static/js/filemanager/",
+    plugins: [
+         "responsivefilemanager advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker",
+         "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+         "save table contextmenu directionality emoticons template paste textcolor"
+   ],
+   toolbar: "insertfile undo redo | styleselect | bold  underline italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link responsivefilemanager | print preview fullpage | forecolor backcolor emoticons",
+   style_formats: [
+        {title: 'Bold text', inline: 'b'},
+        {title: 'Red text', inline: 'span', styles: {color: '#ff0000'}},
+        {title: 'Red header', block: 'h1', styles: {color: '#ff0000'}},
+        {title: 'Example 1', inline: 'span', classes: 'example1'},
+        {title: 'Example 2', inline: 'span', classes: 'example2'},
+        {title: 'Table styles'},
+        {title: 'Table row 1', selector: 'tr', classes: 'tablerow1'}
+    ]
+ });
+</script>
+{% endblock %}
+{% endblock %}
+
+{% block content %}
+
+
+<h3>Course Form</h3>
+{{ user.teacher }}
+<form action="" method="post">{% csrf_token %}
+
+{{form|crispy}}
+
+
+<input type="submit" value="Save"/></form>
+{% endblock %}

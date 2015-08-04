@@ -1,0 +1,35 @@
+{% extends 'school/base.html' %}
+{% load mytemplatetags %}
+
+{% block title %}{{object_name}} Active Families {{cc_name}}{% endblock %}
+
+{% block head %}
+<script type='text/javascript' src='/static/catalog.js'></script>
+{% endblock %}
+{% block content %}
+
+<h1>Active Family Contact List</h1>
+<table class="table  table-hover table-condensed table-borderless">
+  <thead>
+      <tr><th>Last</th><th>First</th><th>Address</th><th>Phone</th><th>Cell</th><th>Email</th></tr>
+  </thead>
+  {% for f in f_list %}
+  {%    for s in f.familymember_set.all %}
+  
+    <tbody>
+        {% if  s.family_member_role.is_household_head %}
+	<tr>
+	    <td>{{ s.last_name }}</td>
+	    <td>{{ s.first_name }}</td>
+	    <td>{{ f.address1 }}<br>{{ f.city }},{{ f.state }}  {{ f.zip_code }}</td>
+	    <td>{{ f.phone_number }}</td>
+	    <td>{{ f.cell_phone_number }}</td>
+	    <td><a href="mailto:{{ f.email_address }}"> {{ f.email_address }}</a></td>
+	</tr>
+        {% endif %}
+    </tbody>
+          {% endfor %}
+   {% endfor %}
+ </div>
+</table>
+{% endblock %}

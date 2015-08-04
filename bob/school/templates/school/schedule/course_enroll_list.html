@@ -1,0 +1,56 @@
+{% extends 'school/base.html' %}
+{% load mytemplatetags %}
+
+{% block title %}{{object_name}} Enroll {{cc_name}}{% endblock %}
+
+{% block head %}
+<script type='text/javascript' src='/static/catalog.js'></script>
+{% endblock %}
+{% block content %}
+<table border=0 width="100%">
+  <tr>
+  {% for key, value in schedule_array.items %}
+      <td colspan=5>
+	{% ifchanged value.period %}
+	  <hr>
+	  <div class="label label-info">{{ value.period }}</div><p>
+	{% endifchanged %}
+	<hr>
+	<b>{{ value.course }} <a href="{% url 'email_class' key %}"><i class="icon-envelope"></i></a><br>
+	{{ value.period }} <br>
+	{{ value.location }}</b>
+      </td>
+   </tr>
+   <tr>
+      <td colspan=2><b>Teachers:  {{ value.teachers|length }}</b><br>
+        {% for a in value.teachers %}
+	    {{ a }}<br>
+	{% endfor %}
+      </td>
+      <td colspan=2 valign="top"><b>Assistants: {{ value.assistants|length }}</b><br>
+	{% for a in value.assistants %}
+	    {{ a }}<br>
+	{% endfor %}
+      </td>
+   </tr>
+   <tr>
+      <td><b>Students:  {{ value.students|length }} </b></td>
+   </tr>
+      <td><b>Name</b></td><td><b>Grade</b></td>
+      <td><b>Age</b></td><td><b></b></td><td><b></b></td>
+	{% for a in value.students %}
+          <tr>
+	    <td>{{ a.0 }}</td>
+	    <td>{{ a.1 }}</td>
+	    <td>{{ a.2 }}</td>
+	  </tr>
+	{% endfor %}
+   </tr>
+   <tr>
+      <td>
+      </td>
+   </tr>
+  {% endfor %}
+</table>
+
+{% endblock %}

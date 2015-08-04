@@ -1,0 +1,40 @@
+This project was created because our local home school cooperative needed
+a way to manage students, courses, registration, events, and other tasks.
+
+There was nothing available that could perform all of these functions so 
+this project was created.
+
+In the "documents" folder are files that contain information about this project:
+
+	- DatabaseSchema.pptx - PowerPoint of the original database schema. This
+				is not updated but very close to accurate.
+
+	- FRED_2_Presentation_Outline_2014.docx - A Word document that 
+				provides an overview of what this application is
+				and how it can be used. It was created for
+				a user training session.
+
+	- FRED_Administrative_Guide.doc - The administration guide for the application.
+
+	- *PDF files - These are documents that walk a user through the most
+			common functions of the site:  Family enrollment, 
+			Adding a course, and New Family Registration
+
+
+A demo of this application can be made available to you if necessary. Just email me at christopher.ryan@gmail.com
+
+
+*******************************************************
+**** I COULD REALLY USE SOME HELP WITH THIS CODE ******
+*******************************************************
+
+If you find this application useful and are proficient in Django, I could really use some help with this code. You'll find that it is not efficient (I'm not a programmer) and I would really like to make it so. I'd also like to replace a few of the functions with AJAX and am struggling with how to best handle that.  
+
+I would welcome help with:
+
+	- Updating / creating additional documentation
+	- Reviewing the code and maybe finding just one or two areas that
+	  you would be intersted in modifying and making more efficient
+	- Reviewing the database calls and modifying them to be more efficient
+	- Reviewing the database schema and suggesting indexes and other hints
+	  to make it run faster.

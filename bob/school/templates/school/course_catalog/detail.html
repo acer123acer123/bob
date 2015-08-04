@@ -1,0 +1,28 @@
+{% extends 'school/base.html' %}
+
+{% block title %}{{object}}{% endblock %}
+
+{% block content %}
+<table>
+<tr><th>Course Name:</th><td>{{object.course_name}}</td></tr>
+<tr><th>Course ID:</th><td>{{object.course}}</td></tr>
+<tr><th>Description:</th><td>{{object.course_desc|safe}}</td></tr>
+<tr><th>Teacher:</th><td>{{object.teacher.family_member.full_name}}{{object.teacher.teacher}}</td></tr>
+<tr><th>Class Min/Max:</th><td>{{object.course_min_size}}/{{object.course_max_size}}</td></tr>
+<tr><th>Course Resource Requirements:</th><td>{{object.needs_course_room}}</td></tr>
+<tr><th>Student Resource Requirements:</th><td>{{object.needs_students}}</td></tr>
+<tr><th>Requested Assistants:</th><td>{{object.preferred_assistants}}</td></tr>
+<tr><th>Notes:</th><td>{{object.admin_notes}}</td></tr>
+<tr><th>Req. time for setup:</th><td>{{object.setup_time}}</td></tr>
+<tr><th>Req. time for teardown:</th><td>{{object.cleanup_time}}</td></tr>
+<tr><th>Course Type:</th><td>{{object.course_type}}</td></tr>
+<tr><th>Course Fee:</th><td>{{object.fee_course}}</td></tr>
+<tr><th>Material Fee:</th><td>{{object.fee_material}}</td></tr>
+<tr><th>Grades:</th><td>
+	{% for grade in object.semester_grade.all %}
+	   <br>{{ grade }}
+	{% endfor %} 
+	</td></tr>
+</table>
+{% endblock %}
+

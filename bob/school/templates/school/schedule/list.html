@@ -1,0 +1,152 @@
+{% extends 'school/base.html' %}
+{% load mytemplatetags %}
+
+{% block title %}{{object_name}} List {{cc_name}}{% endblock %}
+
+{% block head %}
+<script type='text/javascript' src='/static/catalog.js'></script>
+{% endblock %}
+{% block content %}
+{% if family_enrollment_date <= today and semester_is_active.is_active %}
+  <div class="alert alert-info">
+  Use this page to enroll your children in their courses.<br>
+  You can also assign yourself to a class as an assistant.
+  <br><br>
+  Just click on the link for the class that you are interested in<br>
+  and then click on your name or your child's to enroll.
+  <br><br>
+  <b>NOTE: This page loads slowly. We are currently working on the performance of this page.</b>
+  <br><br>
+  <a href="/static/documents/Family_Enrollment.pdf">Family Enrollment Guide</a>
+  </div>
+{% else %}
+  <div class="alert alert-danger">
+   <b>Your enrollment date is {{ family_enrollment_date }}. </b>
+   <p> 
+   You are free to browse the courses but are unable to enroll until your date.
+
+  </div>
+
+{% endif %}
+
+<div class="alert alert-info">
+To see general co-op information, such as enrollment dates, class dates, and the class spreadsheet, <a href="http://www.flchomegroup.com/flc/co-op_main" target="_new">click here</a>
+</div>
+
+<h1>{{ semester_name }} Schedule</h1>
+<table class="table  table-hover table-condensed table-borderless">
+  <thead>
+      <tr><th>Courses
+   </th>
+          <th>Teacher</th><th>Enr./Max</th><th>Grade</th><th>Type</th></tr>
+  </thead>
+{% for object in s_list %}
+ <div class="accordion" id="accordion2">
+  <tbody>
+  {% ifchanged object.semester_period %}
+   <tr>
+    <td colspan="6">
+        <div class="accordion-group">
+        <div class="accordion-heading">
+            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#AP{{ object.semester_period.id }}">
+              <div class="label label-info">{{ object.semester_period }}</div>
+      </a>
+    </td>
+    </tr><tr>
+        <td colspan=6>
+          <div id="AP{{ object.semester_period.id}}" class="accordion-body collapse ">
+          <div class="accordion-inner">
+          </div>
+          </div>
+        </div>
+        </div>
+      </td></tr>
+   </tr>
+  {% endifchanged %}
+    <tr>
+      <td>
+        <div class="accordion-group">
+        <div class="accordion-heading">
+        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#AC{{ object.id }}">
+         {{object.course_catalog}}
+        </a>
+      </td>
+      <td>
+  {% for teacher in object.teacher.all %}
+     {{ teacher }}<br>
+  {% endfor %} 
+      </td>
+      <td>
+    {% if object.get_num_students >= object.course_catalog.course_max_size %}
+    <span class="label label-danger">
+  {% else %}
+    <span class="label label-success">
+    {% endif %}
+        {{ object.get_num_students }}
+          </span> / {{object.course_catalog.course_max_size}}
+      </td>
+      <td>
+  {% for grade in object.semester_grade.all %}
+     {{ grade }}<br>
+  {% endfor %} 
+      </td>
+      <td>
+      {{object.course_catalog.course_type}}
+  <br>Course: {{ object.course_catalog.fee_course }}
+  <br>Material: {{ object.course_catalog.fee_material }}
+      </td>
+      <tr>
+        <td colspan=6>
+          <div id="AC{{ object.id }}" class="accordion-body collapse ">
+          <div class="accordion-inner">
+{% if family_enrollment_date <= today  %}
+         {% if object.get_num_students < object.course_catalog.course_max_size %}
+    {% for a in family_student_list %}
+         {% if a.id not in object.enrolled_family_student_ids %}
+          <a href="{% url 'enroll_student' a.family_member.id object.id object.semester_period.id %}"><button class="btn btn-mini btn-success" type="button">Enroll {{ a.family_member.first_name }} in this course</button></a>
+         {% else %}
+          <button class="btn btn-mini btn-default" type="button">{{a.family_member.first_name}} is enrolled</button> 
+         {% endif %}
+    {% endfor %}
+    {% else %}
+       <button class="btn btn-mini btn-danger" type="button">This course is full</button>
+       {% for a in family_student_list %}
+          {% if a.id in object.enrolled_family_student_ids %}
+          <button class="btn btn-mini btn-default" type="button">{{a.family_member.first_name}} is enrolled</button> 
+          {% endif %}
+       {% endfor %}
+       {% endif %}
+
+         {% if object.get_num_assistants < object.course_catalog.preferred_assistants %}
+    {% for a in family_assistant_list %}
+        {% if a.id not in object.enrolled_family_assistant_ids %}
+       <a href="{% url 'enroll_assistant' a.family_member.id object.id object.semester_period.id %}"><button class="btn btn-mini btn-warning" type="button">{{ a.family_member.first_name }} will assist in this course</button></a>
+         {% else %}
+          <button class="btn btn-mini btn-default" type="button">{{a.family_member.first_name}} is an assistant</button> 
+         {% endif %}
+    {% endfor %}
+    {% else %}
+       {% for a in family_assistant_list %}
+        {% if a.id in object.enrolled_family_assistant_ids %}
+          <button class="btn btn-mini btn-default" type="button">{{a.family_member.first_name}} is assisting</button> 
+          {% endif %}
+       {% endfor %}
+       {% endif %}
+{% endif %}
+        <hr>
+    <h5>Description</h5>
+        {{ object.course_catalog.course_desc | safe }}  
+         <p><br><p>
+    <h5>Student Needs</h5>
+        {{object.course_catalog.needs_student | safe }} 
+          </div>
+          </div>
+        </div>
+        </div>
+      </td></tr>
+
+    {% endfor %}
+  </tbody>
+ </div>
+</table>
+{% endblock %}

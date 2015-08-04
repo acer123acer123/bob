@@ -1,0 +1,24 @@
+{% extends 'school/base.html' %}
+{% block title %}{{object_name}} Form{% endblock %}
+{% load crispy_forms_tags %}
+{% block content %}
+<script type="text/javascript">
+    jQuery(function($){
+        $('#id_phone_number').mask("(999) 999-9999");
+        $('#id_cell_phone_number').mask("(999) 999-9999");
+        });
+</script>
+<div class="alert alert-info">
+Use this page to add a family member.  <br>
+They will automatically be configured as a student.<br>
+<b>You will want to click on the Student Profile link after you add this child and update the birthdate and grade</b><br>
+If they need to be configured as a teacher or assistant, please contact
+the admin.
+</div>
+<form action='' method='post'>{% csrf_token %}
+<input type='hidden' name='name' value=''>
+{{ form|crispy }}
+<input type='submit' value='Next Page' />
+</form>
+
+{% endblock %}

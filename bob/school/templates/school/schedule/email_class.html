@@ -1,0 +1,25 @@
+{% extends 'school/base.html' %}
+{% load mytemplatetags %}
+
+{% block title %}{{object_name}} Email Class {{cc_name}}{% endblock %}
+
+{% block head %}
+<script type='text/javascript' src='/static/catalog.js'></script>
+{% endblock %}
+{% block content %}
+<div class="alert alert-info">
+Use this page to email the families in the {{schedule_name}} class.
+<br>An email will be sent to the teacher(s), assistant(s), and student(s).
+
+<p>What email will be used? The family email. This means that only one email
+<br>is sent <b>per family</b>.
+<p>
+You can see what your family email is by clicking on the 
+<br>Family Member Profile link on the left side of the screen.
+
+</div>
+<form action="" method="post">{% csrf_token %}
+{% include 'school/base_form.html' %}
+<input type="submit" value="Send Email" />
+</form>
+{% endblock %}

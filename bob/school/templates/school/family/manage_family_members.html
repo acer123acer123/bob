@@ -1,0 +1,82 @@
+{% extends 'school/base.html' %}
+{% block title %}{{object_name}} Form{% endblock %}
+
+{% block content %}
+<script type="text/javascript">
+    jQuery(function($){
+        $('#id_phone_number').mask("(999) 999-9999");
+        $('#id_cell_phone_number').mask("(999) 999-9999");
+        $('#id_f-0-phone_number').mask("(999) 999-9999");
+        $('#id_f-0-cell_phone_number').mask("(999) 999-9999");
+        $('#id_f-0-emergency_phone_number').mask("(999) 999-9999");
+        $('#id_fm-0-phone_number').mask("(999) 999-9999");
+        $('#id_fm-0-cell_phone_number').mask("(999) 999-9999"); 
+        $('#id_fm-1-phone_number').mask("(999) 999-9999");
+        $('#id_fm-1-cell_phone_number').mask("(999) 999-9999");
+        $('#id_fm-2-phone_number').mask("(999) 999-9999");
+        $('#id_fm-2-cell_phone_number').mask("(999) 999-9999");
+        $('#id_fm-3-phone_number').mask("(999) 999-9999");
+        $('#id_fm-3-cell_phone_number').mask("(999) 999-9999");
+        $('#id_fm-4-phone_number').mask("(999) 999-9999");
+        $('#id_fm-4-cell_phone_number').mask("(999) 999-9999");
+        $('#id_fm-5-phone_number').mask("(999) 999-9999");
+        $('#id_fm-5-cell_phone_number').mask("(999) 999-9999");
+        });
+</script>
+
+<form method="post" action="" class="form-inline">
+<div class="alert alert-info">
+Use this page to update your family information.  <br>
+The "Main" tab contains information about your household.<br>
+Typically this will include the main address and phone number.<br>
+The other tabs are for each member of your fmaily.<br>
+If the address is the same as the "Main" address then  you can leave these fields blank for each child.<br>
+</div>
+  <button type="submit" class="btn btn-success">Save Changes</button>
+
+
+  {{ family_formset.management_form }}
+
+
+  {{ family_member_formset.management_form }}
+        <ul class="nav nav-tabs" role="tablist">
+          <li role="repsentation"><a href="#f-0-first_name" role="tab" data-toggle="tab">Main</a></li>
+           {% for form in family_member_formset.forms %}
+            <li role="repsentation"><a href="#fm-{{ forloop.counter0 }}-first_name" role="tab" data-toggle="tab">{{ form.first_name.value }}</a></li>
+          {% endfor %}
+        </ul>
+    </div>
+
+
+
+    <div id="content" class="tab-content">
+              {% for form in family_formset.forms %}
+                  {% include 'school/family/manage_family_members-include-f.html' %}
+              {% endfor %}
+ 
+             {% for form in family_member_formset.forms %}
+                {% include 'school/family/manage_family_members-include-fm.html' %}
+             {% endfor %}
+    </div><!-- end content -->
+
+  {% csrf_token %}
+</form>
+
+<hr>
+
+<style>
+
+.centered-form {
+    margin-top: 10px;
+    margin-bottom: 120px;
+}
+
+.centered-form .panel {
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: rgba(0, 0, 0, 0.3) 20px 20px 20px;
+}
+</style>
+
+
+{% endblock %}
+

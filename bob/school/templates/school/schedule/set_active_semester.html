@@ -1,0 +1,20 @@
+{% extends 'school/base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}{{object_name}} Form{% endblock %}
+
+{% block content %}
+<div class="alert alert-info">
+Select the semester that you are interested in. 
+<br><b>It filters out all other semesters.</b>
+<p>
+This is very useful when enrolling your children in their courses.<p>
+</div>
+<form method='post' action='.'>
+{% csrf_token %}
+{{form|crispy }}
+<input type='submit' value='Set the semester filter'>
+</form>
+
+
+{% endblock %}
+
