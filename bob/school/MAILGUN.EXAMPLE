@@ -1,0 +1,42 @@
+import requests
+def send_simple_message(sender, recipients, subject, message):
+    return requests.post( 
+        "https://api.mailgun.net/v2/*********/messages",
+        auth=("api", "key-*********"),
+        data={"from": sender,
+              "to": [recipients],
+              "subject": subject,
+              "text": message})
+
+def create_mailing_list(mail_address, name):
+    return requests.post(
+	"https://api.mailgun.net/v2/lists",
+        auth=("api", "key-********"),
+        data={"address": mail_address,
+	      "name": name,
+	      "access_level": "members"})
+
+def update_mailing_list(old_address, new_address, name):
+    return requests.put(
+	"https://api.mailgun.net/v2/lists/"+old_address,
+        auth=("api", "key-********"),
+        data={"address": new_address,
+	      "name": name})
+
+def add_list_member(list_name, email, full_name):
+    return requests.post(
+	"https://api.mailgun.net/v2/lists/"+list_name+"/members",
+        auth=("api", "key-********"),
+        data={"subscribed": True,
+	      "name": full_name,
+	      "address": email,})
+
+def delete_list_member(list_name, email):
+    return requests.delete(
+	"https://api.mailgun.net/v2/lists/"+list_name+"/members/"+email,
+        auth=("api", "key-********"))
+
+def validate_list(list_name):
+    return requests.get(
+	"https://api.mailgun.net/v2/lists/"+list_name,
+        auth=("api", "key-********"))
