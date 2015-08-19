@@ -13,5 +13,6 @@ sys.path.insert(0,cwd+'/env/lib/python2.7/site-packages')
 os.environ['DJANGO_SETTINGS_MODULE'] = "bob.settings"
 #import django.core.handlers.wsgi
 #application = django.core.handlers.wsgi.WSGIHandler()
+# Uncomment following (and comment above line) for Django 1.7
 from django.core.wsgi import get_wsgi_application
 application = get_wsgi_application()

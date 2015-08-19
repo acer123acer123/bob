@@ -1,9 +1,12 @@
-{% extends 'school/base.html' %}
-{% block title %}{{object_name}} List {{cc_name}}{% endblock %}
+{% extends "admin/base.html" %}
+{% load i18n %}{% load admin_static bootstrapped_goodies_tags %}{% load url from future %}
 
-{% block head %}
-{% block javascript %}
-    <script src="http://code.jquery.com/jquery.js"></script>
+{% block title %}{% render_with_template_if_exist "admin/admin_title.html" "F.R.E.D. administration" %} | {% trans 'F.R.E.D. site admin' %}{% endblock %}
+
+{% block extrahead %}
+
+
+<script src="http://code.jquery.com/jquery.js"></script>
 <script type="text/javascript" src="/static/js/tinymce/tinymce.min.js"></script>
 <script type="text/javascript">
 tinymce.init({
@@ -31,24 +34,13 @@ tinymce.init({
     ]
  });
 </script>
+
+
 {% endblock %}
 
+
+{% block branding %}
+<a class="brand" href="{% url 'admin:index' %}">{% render_with_template_if_exist "admin/admin_title.html" "F.R.E.D. administration" %}</a> <a class="brand" href="/school">School</a>
 {% endblock %}
-{% block content %}
-<script type="text/javascript">
-    jQuery(function($){
-        $('#id_event_time').mask("99:99 **");
-        });
-</script>
 
-
-<h1>Events</h1>
-
-<form method="post">{% csrf_token %}
-    {{ form }}
-	<br>
-    <input type="submit" value="Submit" />
-
-</form>
-
-{% endblock %}
+{% block nav-global %}{% endblock %}

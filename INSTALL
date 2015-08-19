@@ -78,9 +78,12 @@ This document describes the steps necessary to install the application
 # Load the database
   ******************* NEED INFO ***********
 
+# CRONTAB for Post Office
+
 
 # Start the application
   cd $HOME/<domain>/
   mkdir tmp
   pkill python
   touch tmp/restart.txt
+

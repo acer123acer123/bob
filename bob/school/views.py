@@ -33,6 +33,7 @@ from collections import defaultdict
 import string, random
 from django.forms.widgets import CheckboxSelectMultiple
 from django.db import transaction
+from post_office import mail
 
 
 
@@ -675,8 +676,34 @@ def post_form_NewFamilyForm(request):
         sender = "kimberly.ryan@gmail.com"
         recipients = ('kimberly.ryan@gmail.com')
         text_content = strip_tags(message)
-        a = send_simple_message(sender, recipients, subject, message) 
+        #a = send_simple_message(sender, recipients, subject, message) 
+        if reason_for_registration_string.find('co-op') > -1:
+            mail.send(
+                [email_address],
+                'kimberly.ryan@gmail.com',
+                template='Welcome_Co-op',
+            )
+        elif reason_for_registration_string.find('High') > -1:
+            mail.send(
+                [email_address],
+                'kimberly.ryan@gmail.com',
+                template='Welcome_HighSchool',
+            )
+        elif reason_for_registration_string.find('Events') > -1:
+            mail.send(
+                [email_address],
+                'kimberly.ryan@gmail.com',
+                template='Welcome_Events',
+            )
+        else: 
+            mail.send(
+                [email_address],
+                'kimberly.ryan@gmail.com',
+                template='Welcome_Co-op',
+            )
+
         return render_to_response('school/family/post_form_NewFamilyForm_success.html', context)
+
 
     return render(request, 'school/family/post_form_NewFamilyForm.html', { 'form': form,})
 

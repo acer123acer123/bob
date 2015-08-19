@@ -3,6 +3,8 @@
 
 {% block title %}{% render_with_template_if_exist "admin/admin_title.html" "F.R.E.D. administration" %} | {% trans 'F.R.E.D. site admin' %}{% endblock %}
 
+
+
 {% block branding %}
 <a class="brand" href="{% url 'admin:index' %}">{% render_with_template_if_exist "admin/admin_title.html" "F.R.E.D. administration" %}</a> <a class="brand" href="/school">School</a>
 {% endblock %}

@@ -13,14 +13,6 @@ KNOWLEDGE_ALERTS = True
 
 SESSION_SERIALIZER= 'django.contrib.sessions.serializers.PickleSerializer'
 
-SOUTH_MIGRATION_MODULES = {
-    'report_builder': 'ignore',
-    'crispy_forms': 'ignore',
-    'select2': 'ignore',
-    'stronghold': 'ignore',
-    'knowledge': 'ignore',
-}
-
 
 # Django Impersonate Settings
 #    see documentation or https://bitbucket.org/petersanchez/django-impersonate for information
@@ -31,6 +23,7 @@ IMPERSONATE_REQUIRE_SUPERUSER=True
 IMPERSONATE_ALLOW_SUPERUSER=True
 
 DEFAULT_FROM_EMAIL='*********'
+EMAIL_BACKEND='post_office.EmailBackend'
 EMAIL_HOST='*********'
 EMAIL_HOST_USER = 'postmaster@********'
 EMAIL_HOST_PASSWORD='***********'
@@ -185,6 +178,7 @@ INSTALLED_APPS = (
     'knowledge',
     'stronghold',
     'impersonate',
+    'post_office',
 )
 
 
