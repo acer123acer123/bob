@@ -588,6 +588,7 @@ def add_new_FamilyMember(request):
         last_name = form.cleaned_data['last_name']
         last_name = last_name.replace(" ", "")
         username = first_name+"."+last_name
+        model_instance.last_login=datetime.now().date()
         if len(username) > 30:
             username = username[:30]
 
@@ -734,15 +735,19 @@ def EmailClass(request, schedule_id):
 class EventList(ListView):
     model = Event
     template_name = 'school/event/event_list.html'
-    queryset = Event.objects.filter(event_date__gte=datetime.today())
+  #  def get_queryset(self):
+  #      qs =  Event.objects.filter(event_date__gte=datetime.today())
+  #      return qs
    
 class EventCreate(CreateView):
     model = Event
+    fields = '__all__'
     template_name = 'school/event/event_form.html'
     success_url = reverse_lazy('event_list')
 
 class EventUpdate(UpdateView):
     model = Event
+    fields = '__all__'
     template_name = 'school/event/event_form.html'
     success_url = reverse_lazy('event_list')
 
