@@ -39,14 +39,15 @@
    <tr>
    <td colspan=4><table class="table table-hover"><tr>
       <td><b>Name</b></td><td><b>Grade</b></td>
-      <td><b>Age</b></td><td><b>Emergency</b></td><td><b>Allergies</b></td>
+      <td><b>Age</b></td><td><b>(P) Family Phone<br>(E) Emergency Contact</b></td><td><b>Allergies</b></td>
 	{% for a in object.get_student_list %}
           <tr>
 	    <td>{{ a.student }}</td>
 	    <td>{{ a.student.grade }}</td>
 	    <td>{{ a.student.age }}</td>
-	    <td>{{ a.student.family_member.family.emergency_name }}<br>
-		{{ a.student.family_member.family.emergency_phone_number }}<br>
+	    <td>P: {{ a.student.family_member.family.phone_number }} 
+                <br>E:{{ a.student.family_member.family.emergency_name }}<br>
+		E:{{ a.student.family_member.family.emergency_phone_number }}<br>
 	        <i>{{ a.student.family_member.family.emergency_notes}}</i></td>
 	    <td>{{ a.student.food_allergies }}</td>
 	  </tr>
