@@ -16,13 +16,13 @@
     {% ifchanged object.id %}
       <td colspan=5>
 	<hr>
-	<b>{{ object.course_catalog }} <a href="{% url 'email_class' object.id %}"><i class="icon-envelope"></i></a><br>
+	<b>{{ object.course_catalog }} <a href="{% url 'email_class' object.id %}"><i class="glyphicon glyphicon-envelope"></i></a><br>
 	{{ object.semester_period }} <br>
 	{{ object.course_location }}</b>
       </td>
    </tr>
    <tr>
-      <td colspan=2><b>Teachers:</b><br>
+      <td colspan=2><b>Teachers:</b><a href="{% url 'email_class_teacher' object.id %}"><i class="glyphicon glyphicon-envelope"></i></a><br>
         {% for a in object.teacher.all %}
 	    {{ a }}<br>
 	{% endfor %}

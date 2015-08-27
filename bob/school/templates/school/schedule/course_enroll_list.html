@@ -22,7 +22,7 @@
       </td>
    </tr>
    <tr>
-      <td colspan=2><b>Teachers:  {{ value.teachers|length }}</b><br>
+      <td colspan=2><b>Teachers:  {{ value.teachers|length }}</b><a href="{% url 'email_class_teacher' object.id %}"><i class="glyphicon glyphicon-envelope"></i></a><br>
         {% for a in value.teachers %}
 	    {{ a }}<br>
 	{% endfor %}
