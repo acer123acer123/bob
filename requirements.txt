@@ -1,4 +1,4 @@
-Django==1.7.9
+Django==1.8.4
 django-admin-bootstrapped==2.5.4
 django-crispy-forms==1.4.0
 -e git+https://github.com/django-debug-toolbar/django-debug-toolbar.git@44cb947e85d24d15eaad6d39176c19677dee212b#egg=django_debug_toolbar-master
@@ -7,7 +7,6 @@ django-grappelli==2.5.7
 django-impersonate==0.9.1
 django-input-mask==1.3.7.1
 django-jsonfield==0.9.15
-django-knowledge==0.2.0
 django-post-office==2.0.1
 django-report-builder==3.1.12
 django-report-utils==0.3.12
