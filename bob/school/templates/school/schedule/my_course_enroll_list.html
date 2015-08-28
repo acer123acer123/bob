@@ -27,7 +27,7 @@
 	    {{ a }}<br>
 	{% endfor %}
       </td>
-      <td colspan=2 valign="top"><b>Assistants: {{ object.get_num_assistants }}</b><br>
+      <td colspan=2 valign="top"><b>Assistants: {{ object.get_num_assistants }}</b><a href="{% url 'email_class_assistant' object.id %}"><i class="glyphicon glyphicon-envelope"></i></a><br>
 	{% for a in object.get_assistant_list %}
 	    {{ a.assistant }}<br>
 	{% endfor %}

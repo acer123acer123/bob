@@ -728,6 +728,24 @@ def EmailClassTeacher(request, schedule_id):
 
     return render(request, "school/schedule/email_teacher.html", { 'form': form, 'schedule_name': sc, })
 
+def EmailClassAssistant(request, schedule_id):
+    sc = Schedule.objects.get(pk=schedule_id)
+    sm = request.session.get('active_semester')
+    form = EmailClassForm(request.POST or None)
+    if form.is_valid():
+        schedules = Schedule.objects.get(pk=schedule_id)
+        a = [p.assistant.family_member.family.email_address for p in schedules.get_assistant_list()]
+        recipients = list(set(a))
+
+        subject = form.cleaned_data['subject']
+        message = form.cleaned_data['message']
+        sender = request.user.family.email_address
+        text_content = strip_tags(message)
+        a = send_simple_message(sender, recipients, subject, message) 
+        return redirect('/school/thanks')
+    return render(request, "school/schedule/email_assistant.html", { 'form': form, 'schedule_name': sc, })
+
+
 def EmailClass(request, schedule_id):
     sc = Schedule.objects.get(pk=schedule_id)
     sm = request.session.get('active_semester')

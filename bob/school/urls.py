@@ -47,6 +47,7 @@ urlpatterns += patterns('school.views',
     url(r'^EnrollAssistant/(?P<family_member>\d+)/(?P<schedule_id>\d+)/(?P<semester_period_id>\d+)/$', EnrollAssistant,  name='enroll_assistant',  ),
     url(r'^EmailClass/(?P<schedule_id>\d+)/$', EmailClass,  name='email_class',  ),
     url(r'^EmailClassTeacher/(?P<schedule_id>\d+)/$', EmailClassTeacher,  name='email_class_teacher',  ),
+    url(r'^EmailClassAssistant/(?P<schedule_id>\d+)/$', EmailClassAssistant,  name='email_class_assistant',  ),
     url(r'^EmailGroup$', EmailGroup,  name='email_group',  ),
 )
 

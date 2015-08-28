@@ -1,0 +1,18 @@
+{% extends 'school/base.html' %}
+{% load mytemplatetags %}
+
+{% block title %}{{object_name}} Email Assistants {{cc_name}}{% endblock %}
+
+{% block head %}
+<script type='text/javascript' src='/static/catalog.js'></script>
+{% endblock %}
+{% block content %}
+<div class="alert alert-info">
+Use this page to email the assistant(s) in the {{schedule_name}} class.
+
+</div>
+<form action="" method="post">{% csrf_token %}
+{% include 'school/base_form.html' %}
+<input type="submit" value="Send Email" />
+</form>
+{% endblock %}
