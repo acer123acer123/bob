@@ -9,7 +9,7 @@ from django.views.generic.list import ListView
 from school.models import *
 from school.mailgun import *
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from school.forms import CourseCatalogForm, SemesterForm, NewFamilyForm, NewFamilyMemberForm
+from school.forms import CourseCatalogForm, SemesterForm, NewFamilyForm, NewFamilyMemberForm, ContactForm
 from school.forms import EmailClassForm, EventForm, EventEnrollmentForm , EventAddEnrollmentForm, EmailGroupForm, EmailEventForm
 from django.core.mail import EmailMessage, EmailMultiAlternatives
 from django.forms.models import modelformset_factory, BaseModelFormSet, formset_factory, inlineformset_factory
@@ -28,7 +28,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django import forms
 from django.db.models import Count
 from stronghold.decorators import public
-from django.core.mail import send_mail, EmailMultiAlternatives
+from django.core.mail import send_mail, EmailMultiAlternatives, BadHeaderError
 from collections import defaultdict
 import string, random
 from django.forms.widgets import CheckboxSelectMultiple
@@ -1085,3 +1085,20 @@ def send_email(request):
         return HttpResponse(a)
         
     return HttpResponse('OK')
+
+def contact_email(request):
+    if request.method == 'GET':
+        form = ContactForm()
+    else:
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            subject = form.cleaned_data['subject']
+            your_email = form.cleaned_data['your_email']
+            message = form.cleaned_data['message']
+            try:
+                send_mail(subject, message, your_email, ['chris.ryan.12345@gmail.com'])
+            except BadHeaderError:
+                return HttpResponse('Invalid header found.')
+            return redirect('/school/thanks/')
+    return render(request, "school/contact_email.html", {'form': form})
+

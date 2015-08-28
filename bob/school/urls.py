@@ -90,5 +90,6 @@ urlpatterns += patterns('school.views',
 # Email URLs
 urlpatterns += patterns('school.views',
     url(r'^sendEmail/$', send_email, name='send_email', ),
+    url(r'^contact/$', contact_email, name='contact_email',),
 )
 

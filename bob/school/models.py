@@ -520,14 +520,14 @@ class Event(models.Model):
     def get_absolute_url(self):
         return reverse('event_detail', kwargs={'pk': self.pk})
     def get_enrolled(self):
-        return self.eventenrollment_set.select_related('eventenrollment').order_by('family')
+        return self.eventenrollment_set.select_related('family').order_by('family')
     def get_num_children(self):
-        return self.eventenrollment_set.select_related('eventenrollment').aggregate(num_children=Sum('count_child'))
+        return self.eventenrollment_set.select_related('family').aggregate(num_children=Sum('count_child'))
     def get_num_adults(self):
-        return self.eventenrollment_set.select_related('eventenrollment').aggregate(num_adults=Sum('count_adult'))
+        return self.eventenrollment_set.select_related('family').aggregate(num_adults=Sum('count_adult'))
     def get_num_total(self):
-        a=self.eventenrollment_set.select_related('eventenrollment').aggregate(num_adults=Sum('count_adult')).values()[0]
-        c=self.eventenrollment_set.select_related('eventenrollment').aggregate(num_children=Sum('count_child')).values()[0]
+        a=self.eventenrollment_set.select_related('family').aggregate(num_adults=Sum('count_adult')).values()[0] or 0
+        c=self.eventenrollment_set.select_related('family').aggregate(num_children=Sum('count_child')).values()[0] or 0
         ttl=a+c
         if self.event_max_size <= ttl:
             return True

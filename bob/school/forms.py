@@ -80,3 +80,7 @@ class EmailGroupForm(forms.Form):
     subject = forms.CharField(max_length=100, widget=forms.Textarea(attrs={'class':'field span12', 'rows': 1}))
     message = forms.CharField(widget=forms.Textarea(attrs={'class':'field span12', 'rows': 20}))
 
+class ContactForm(forms.Form):
+    your_email = forms.EmailField(required=True)
+    subject = forms.CharField(required=True)
+    message = forms.CharField(widget=forms.Textarea)
