@@ -30,7 +30,6 @@ urlpatterns = [
     url(r'^account/logout/$', public(logout), {'next_page': '/school/'}, name='logout'),
     url(r'^school/', include('school.urls')),
     url(r'^report_builder/', include('report_builder.urls')) ,
-    url(r'^knowledge/', include('knowledge.urls')),
     url(r'^$', public(RedirectView.as_view(url='/school/'))),
     url(r'^impersonate/', include('impersonate.urls')),
 ]
