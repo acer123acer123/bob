@@ -139,7 +139,7 @@ class AssistantAdmin(admin.ModelAdmin):
     search_fields = ('family_member__first_name', 'family_member__last_name')
 
 class StudentAdmin(admin.ModelAdmin):
-    list_display = ('family_member', 'grade', 'type', 'notes',)
+    list_display = ('id', 'family_member', 'grade', 'type', 'notes',)
     form = STAAdminForm
     search_fields = ('family_member__first_name', 'family_member__last_name')
 
