@@ -45,10 +45,104 @@ tinymce.init({
 <h1>Events</h1>
 
 <form method="post">{% csrf_token %}
-    {{ form }}
-	<br>
-    <input type="submit" value="Submit" />
+<input type='hidden' name='name' value=''>
+ <div class="container" id="container1">
+        <div class="row centered-form">
+            <div class="col-xs-12 col-sm-8 col-md-8 col-sm-offset-2 col-md-offset-1">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title text-center">New / Edit Event</h3>
+                    </div>
+                    <div class="panel-body">
+                        <form role="form">
+                            <div class="form-group {% if form.title.errors %}has-error {% endif %}"><b>Title of Event*</b>
+                                <input type="text" name="{{ form.title.html_name}}" id="{{ form.title.id_for_label}}" class="form-control input-sm" value="{{ form.title.value }}">
+                            </div>
+
+                            <div class="form-group {% if form.description.errors %}has-error {% endif %}"><b>Description*</b>
+			        {{ form.description }}
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group {% if form.event_max_size.errors %}has-error {% endif %}"><b>Limit*</b>
+                                        <input type="number" name="{{ form.event_max_size.html_name }}" id="{{ form.event_max_size.id_for_label }}" class="form-control input-sm" value="{{ form.event_max_size.value }}">
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                  <div class="form-group {% if form.family.errors %}has-error {% endif %}"><b>Host Family*</b><br>
+                                    {{ form.family }}
+                                   </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group {% if form.fee_event.errors %}has-error {% endif %}"><b>Cost of Event*</b>
+                                        <input type="text" name="{{ form.fee_event.html_name }}" id="{{ form.fee_event.id_for_label }}" class="form-control input-sm" value="{{ form.fee_event.value }}">
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group {% if form.fee_per.errors %}has-error {% endif %}"><b>Cost Per____*</b><br>
+				      {{ form.fee_per }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group {% if form.event_date.errors %}has-error {% endif %}"><b>Date (MM/DD/YYYY)*</b>
+                                         <input type="text" name="{{ form.event_date.html_name }}" id="{{ form.event_date.id_for_label }}" class="form-control input-sm" value="{{ form.event_date.value }}" >
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group {% if form.event_time.errors %}has-error {% endif %}"><b>Time (HH:MM AM|PM)</b>
+                                         <input type="text" name="{{ form.event_time.html_name }}" id="{{ form.event_time.id_for_label }}" class="form-control input-sm" value="{{ form.event_time.value }}">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group {% if form.event_registration_date.errors %}has-error {% endif %}"><b>Registration Ends (MM/DD/YYYY)*</b>
+                                         <input type="text" name="{{ form.event_registration_date.html_name }}" id="{{ form.event_registration_date.id_for_label }}" class="form-control input-sm" value="{{ form.event_registration_date.value }}" >
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group {% if form.is_cancelled.errors %}has-error {% endif %}">Cancelled
+				      {{ form.is_cancelled }}
+                                    </div>
+                                </div>
+
+
+                            <input type="submit" value="Submit" class="btn btn-info btn-block">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
 
 </form>
+<style>
+
+.centered-form {
+    margin-top: 120px;
+    margin-bottom: 120px;
+}
+
+.centered-form .panel {
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: rgba(0, 0, 0, 0.3) 20px 20px 20px;
+}
+</style>
+
+
 
 {% endblock %}

@@ -5,10 +5,13 @@ from school.models import CourseCatalog, CourseType, SemesterGrade, Schedule, St
 class CourseCatalogForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
 	super(CourseCatalogForm, self).__init__(*args, **kwargs)
-	self.fields['course_name'].widget.attrs['class'] = "field span12"
-	self.fields['course_desc'].widget.attrs['class'] = "field span12"
-	self.fields['needs_course_room'].widget.attrs['class'] = "field span12"
-	self.fields['needs_student'].widget.attrs['class'] = "field span12"
+	#self.fields['course_name'].widget.attrs['class'] = "form-control"
+	#self.fields['course_desc'].widget.attrs['class'] = "form-control"
+	self.fields['teacher'].widget.attrs['class'] = "form-control"
+	self.fields['course_type'].widget.attrs['class'] = "form-control"
+	self.fields['semester_grade'].widget.attrs['class'] = "form-control"
+	#self.fields['needs_course_room'].widget.attrs['class'] = "form-control"
+	#self.fields['needs_student'].widget.attrs['class'] = "form-control"
         self.fields['teacher'].queryset = self.fields['teacher'].queryset.select_related('family_member')
     class Meta:
     	model=CourseCatalog
