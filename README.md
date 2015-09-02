@@ -64,14 +64,16 @@ this project was created.
 
 <p>
 <h2>Home Screen</h2>
-![alt tag](https://cloud.githubusercontent.com/assets/5222071/9633604/a4c8e4a6-515b-11e5-8fa8-e9605d556a32.png "Home Screen")
+![alt tag](https://cloud.githubusercontent.com/assets/5222071/9633604/a4c8e4a6-515b-11e5-8fa8-e9605d556a32.png =50% "Home Screen")
 
 
 <p>
+<h2>Student Enrollment</h2>
 ![alt tag](https://cloud.githubusercontent.com/assets/5222071/9633601/a28e162a-515b-11e5-977d-47468c339ed4.png "Enrollment")
 
 
 <p>
+<h2>Family Member Profile</h2>
 ![alt tag](https://cloud.githubusercontent.com/assets/5222071/9633603/a3b716a0-515b-11e5-95a5-7c5b6640c2df.png "Family Member Profile")
 
 
