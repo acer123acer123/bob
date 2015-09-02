@@ -64,7 +64,7 @@ this project was created.
 
 <p>
 <h2>Home Screen</h2>
-![alt tag](https://cloud.githubusercontent.com/assets/5222071/9633604/a4c8e4a6-515b-11e5-8fa8-e9605d556a32.png =200px "Home Screen")
+![alt tag](https://cloud.githubusercontent.com/assets/5222071/9633604/a4c8e4a6-515b-11e5-8fa8-e9605d556a32.png "Home Screen")
 
 
 <p>
