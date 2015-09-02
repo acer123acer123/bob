@@ -1,4 +1,6 @@
-** INTRODUCTION **
+*************************
+**** INTRODUCTION *******
+*************************
 
 Home schooling is a tough job, as any parent will tell you, but it is made
 a bit easier by local cooperatives that offer resources such as teaching,
@@ -15,7 +17,9 @@ a way to manage students, courses, registration, events, and other tasks.
 There was nothing available that could perform all of these functions so 
 this project was created.
 
-** FEATURES **
+*************************
+**** FEATURES ***********
+*************************
 
 	- The main goal was to make the software completely modular
 		to achieve the greatest flexibility in every area
@@ -63,7 +67,9 @@ this project was created.
 ![alt tag](https://cloud.githubusercontent.com/assets/5222071/9633603/a3b716a0-515b-11e5-95a5-7c5b6640c2df.png "Family Member Profile")
 
 
-** Documentation **
+*************************
+**** DOCUMENTATION ******
+*************************
 
 In the "documents" folder are files that contain information about this project:
 
@@ -82,6 +88,9 @@ In the "documents" folder are files that contain information about this project:
 			Adding a course, and New Family Registration
 
 
+************************
+**** DEMO **************
+************************
 A demo is available at:
 
 http://demo.flchomegroup.com
