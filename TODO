@@ -1,0 +1,7 @@
+For migration.....
+school_familymember.username = varchar(255)
+
+
+Family Profile 
+  - Add password fields
+  

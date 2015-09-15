@@ -196,7 +196,7 @@ class FamilyMemberBaseFormSet(BaseModelFormSet):
         form.fields['zip_code'].widget.attrs['class'] = 'input-small'
         form.fields['gender'].widget = forms.HiddenInput()
         form.fields['family'].widget = forms.HiddenInput()
-        form.fields['username'].widget = forms.HiddenInput()
+        #form.fields['username'].widget = forms.HiddenInput()
         form.fields['password'].widget = forms.HiddenInput()
         form.fields['last_login'].widget = forms.HiddenInput()
         form.fields['date_joined'].widget = forms.HiddenInput()
@@ -608,8 +608,8 @@ def add_new_FamilyMember(request):
 def post_form_NewFamilyForm(request):
     family_name_unique=0
     form = NewFamilyForm(request.POST or None)
-
     if form.is_valid():
+        username = form.cleaned_data['username']
         first_name = form.cleaned_data['first_name']
         first_name = first_name.replace(" ", "")
         last_name = form.cleaned_data['last_name']
@@ -642,9 +642,9 @@ def post_form_NewFamilyForm(request):
                                          cell_phone_number=cell_phone_number,
                                          phone_number=phone_number)
 
-        username = first_name+"."+last_name
-        if len(username) > 30:
-            username = username[:30]
+        #username = first_name+"."+last_name
+        #if len(username) > 30:
+        #    username = username[:30]
 
         if FamilyMember.objects.filter(username=username).exists():
             if FamilyMember.objects.filter(username=username+".123").exists():
@@ -658,6 +658,7 @@ def post_form_NewFamilyForm(request):
                                         password=password,
                                         gender=gender,
                                         is_superuser=0,
+                                        last_login=datetime.now().date(),
                                         first_name=first_name,
                                         last_name=last_name,
                                         email=email_address,
@@ -771,9 +772,9 @@ def EmailClass(request, schedule_id):
 class EventList(ListView):
     model = Event
     template_name = 'school/event/event_list.html'
-  #  def get_queryset(self):
-  #      qs =  Event.objects.filter(event_date__gte=datetime.today())
-  #      return qs
+    def get_queryset(self):
+        qs =  Event.objects.filter(event_date__gte=datetime.today())
+        return qs
    
 class EventCreate(CreateView):
     model = Event
@@ -1102,3 +1103,22 @@ def contact_email(request):
             return redirect('/school/thanks/')
     return render(request, "school/contact_email.html", {'form': form})
 
+@csrf_exempt
+@public
+def checkusername(request):
+    username = request.POST.get('username', False)
+    showLogin = request.POST.get('showLogin', False)
+    if showLogin:
+        showLogin="<a href='http://play.flchomegroup.com/accounts/login/'>Sign in instead.</a>"
+    else:
+        showLogin=""
+    if username:
+        u = FamilyMember.objects.filter(username=username).count()
+        if u != 0:
+            res = "<span class='label label-danger'>User name exists</span>"
+        else:
+            res = "<span class='label label-success'>Available</span>"
+    else:
+        res = ""
+
+    return HttpResponse('%s' % res)

@@ -35,6 +35,7 @@ class NewFamilyForm(forms.Form):
         ('M', 'Male'),
         ('F', 'Female'),
     )
+    username = forms.CharField(max_length=200)
     first_name = forms.CharField(max_length=200)
     last_name = forms.CharField(max_length=200)
     password = forms.CharField(widget=forms.PasswordInput())

@@ -23,6 +23,27 @@
         $('#id_fm-5-cell_phone_number').mask("(999) 999-9999");
         });
 </script>
+<script type="text/javascript">
+var previous_username = '';
+var in_ajax = 0;
+function checkUsername(myID) {
+    hidden_username =  $("#id_fm-"+ myID + "-hidden-username").val();
+    username = $("#id_fm-"+ myID + "-username").val();
+    if ((hidden_username != username) && (username != '')) {
+        $("#username"+ myID + "_status").load('/school/check_username/', {username: username, });
+    }
+    else {
+        $("#username"+ myID + "_status").load('/school/check_username/', {username: "FORCE_SUCCESS", });
+    }
+    //previous_username = username;
+
+}
+//$(function() ${
+//    setInterval("checkUsername()", 3000);
+//});
+
+
+</script>
 
 <form method="post" action="" class="form-inline">
 <div class="alert alert-info">

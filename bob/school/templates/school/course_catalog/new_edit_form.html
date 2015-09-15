@@ -53,7 +53,7 @@ tinymce.init({
                     <div class="panel-body">
                         <form role="form">
                             <div class="form-group {% if form.course_name.errors %}has-error {% endif %}"><b>Course Name*</b>
-                                <input type="text" name="{{ form.course_name.html_name}}" id="{{ form.course_name.id_for_label}}" class="form-control input-sm" value="{{ form.course_name.value }}">
+                                <input type="text" name="{{ form.course_name.html_name}}" id="{{ form.course_name.id_for_label}}" class="form-control input-sm" value="{{ form.course_name.value|default_if_none:"" }}" placeholder="">
                             </div>
 
                             <div class="form-group {% if form.course_desc.errors %}has-error {% endif %}">

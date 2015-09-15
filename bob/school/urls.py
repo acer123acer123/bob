@@ -78,6 +78,7 @@ urlpatterns += patterns('school.views',
     url(r'^Events/new/enrollment/(?P<pk>\d+)$', EventAddEnrollment.as_view(), name='event_add_enrollment'),
     url(r'^Events/delete/enrollment/(?P<pk>\d+)$', EventDeleteEnrollment.as_view(), name='event_delete_enrollment'),
     url(r'^EmailEvent/(?P<event_id>\d+)/$', EmailEvent,  name='email_event',  ),
+    url(r'^check_username/', checkusername,  name='checkusername',  ),
 )
 
 # Admin URLs
