@@ -38,9 +38,13 @@ function checkUsername(myID) {
     //previous_username = username;
 
 }
-//$(function() ${
-//    setInterval("checkUsername()", 3000);
-//});
+function checkEmail(myID) {
+    email = $("#id_fm-"+ myID + "-email").val();
+    if ( email == '' ) {
+      var milliseconds = (new Date).getTime();
+      $("#id_fm-"+ myID + "-email").val(milliseconds + "@NOTSET.COM");
+    }
+}
 
 
 </script>
@@ -63,12 +67,32 @@ If the address is the same as the "Main" address then  you can leave these field
      </div>
   </div>
 </div>
+{% if family_member_formset.total_error_count %}
+<div class="alert alert-danger">
+   <h3>Error(s)</h3>
+    {% for dict in family_member_formset.errors %}
+        {% for error in dict.values %}
+        {{ error }}
+        {% endfor %}
+    {% endfor %}
+{% endif %}
+{% if family_formset.total_error_count %}
+<div class="alert alert-danger">
+   <h3>Error(s)</h3>
+    {% for dict in family_formset.errors %}
+        {% for error in dict.values %}
+        {{ error }}
+        {% endfor %}
+    {% endfor %}
+{% endif %}
+
+</div>
   <button type="submit" class="btn btn-success">Save Changes</button>
 
   {{ family_formset.management_form }}
 
-
   {{ family_member_formset.management_form }}
+
         <ul class="nav nav-tabs" role="tablist">
           <li role="repsentation"><a href="#f-0-first_name" role="tab" data-toggle="tab">Main</a></li>
            {% for form in family_member_formset.forms %}

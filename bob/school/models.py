@@ -333,7 +333,7 @@ class FamilyMemberEmail(models.Model):
 
 class CourseCatalog(models.Model):
     course_name = models.CharField(verbose_name="Course name", max_length=50)
-    course_desc = models.TextField(verbose_name="Course Description")
+    course_desc = models.TextField(verbose_name="Course Description", default="Add description")
     teacher = models.ForeignKey(Teacher, blank=True, null=True, verbose_name='Course Owner', on_delete=models.PROTECT)
     course_min_size = models.IntegerField(verbose_name="Min Class Size", default=3)
     course_max_size = models.IntegerField(verbose_name="Max Class Size", default=20)

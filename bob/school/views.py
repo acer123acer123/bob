@@ -22,7 +22,7 @@ from django.utils.html import strip_tags
 from django.contrib.auth.decorators import login_required, permission_required
 from django.utils.decorators import method_decorator
 from django.contrib.admin.views.decorators import staff_member_required
-from django.contrib.auth.hashers import make_password
+from django.contrib.auth.hashers import make_password, check_password, is_password_usable
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
 from django import forms
@@ -180,7 +180,6 @@ class FamilyBaseFormSet(BaseModelFormSet):
         form.fields['family_benefits'].widget = forms.HiddenInput()
 
 class FamilyMemberBaseFormSet(BaseModelFormSet):
-
     def add_fields(self, form, index):
         super(FamilyMemberBaseFormSet, self).add_fields(form, index)
         form.fields['email_list'].widget = CheckboxSelectMultiple()
@@ -197,16 +196,20 @@ class FamilyMemberBaseFormSet(BaseModelFormSet):
         form.fields['gender'].widget = forms.HiddenInput()
         form.fields['family'].widget = forms.HiddenInput()
         #form.fields['username'].widget = forms.HiddenInput()
-        form.fields['password'].widget = forms.HiddenInput()
+        form.fields['password'].widget = forms.PasswordInput()
         form.fields['last_login'].widget = forms.HiddenInput()
         form.fields['date_joined'].widget = forms.HiddenInput()
         form.fields['family_member_role'].widget = forms.HiddenInput()
         form.fields['notes'].widget = forms.HiddenInput()
         form.fields['is_superuser'].widget = forms.HiddenInput()
-        form.fields['is_active'].widget = forms.HiddenInput()
+        #form.fields['is_active'].widget = forms.HiddenInput()
         form.fields['is_staff'].widget = forms.HiddenInput()
 
-
+    def clean(self):
+        super(FamilyMemberBaseFormSet, self).clean()
+        for form in self.forms:
+            if not is_password_usable(form.cleaned_data['password']):
+                form.instance.password = make_password(form.cleaned_data['password'])
 
 def manage_family_member(request):
 
@@ -216,14 +219,20 @@ def manage_family_member(request):
     emaillist = EmailList.objects.filter(is_active=True)
     emaillist = EmailList.objects.get_user()
     if request.method == "POST":
-        family_formset = FamilyInlineFormSet(request.POST,  request.FILES,
-                queryset=Family.objects.filter(id=request.user.family.id), prefix='f')
-        family_member_formset = FamilyMemberInlineFormSet(request.POST, request.FILES,
-                queryset=FamilyMember.objects.filter(family=request.user.family.id), prefix='fm')
+        #family_formset = FamilyInlineFormSet(request.POST,  request.FILES,
+                #queryset=Family.objects.filter(id=request.user.family.id), prefix='f')
+        #family_member_formset = FamilyMemberInlineFormSet(request.POST, request.FILES,
+        #        queryset=FamilyMember.objects.filter(family=request.user.family.id), prefix='fm')
+        family_formset = FamilyInlineFormSet(request.POST, prefix='f')
+        family_member_formset = FamilyMemberInlineFormSet(request.POST, prefix='fm')
         if family_formset.is_valid() and family_member_formset.is_valid():
             family_formset.save()
             for form in family_member_formset:
                 fmform = form.save(commit=False)
+                #new_password = form.cleaned_data.get('new_password')
+
+                
+                    
                 matches = fmform.email_list.get_admin().all()
                 elist=[]
                 for e in matches:
@@ -1122,3 +1131,4 @@ def checkusername(request):
         res = ""
 
     return HttpResponse('%s' % res)
+

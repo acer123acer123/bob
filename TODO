@@ -1,7 +1,10 @@
 For migration.....
 school_familymember.username = varchar(255)
+Images and uploaded PDF files in course catalog don't point to right folder (DB change)
 
 
 Family Profile 
-  - Add password fields
-  
+  - Allow parents to change student's passwords
+  - New family form - must use unique email address.
+  - If userid is not available (new or modify) then don't let the user submit
+  - If email is not available (new or modify) then don't let the user submit

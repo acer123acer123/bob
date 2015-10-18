@@ -15,19 +15,24 @@ Including another URLconf
 """
 from django.conf.urls import include, url, patterns
 from django.contrib import admin
-from django.contrib.auth.views import login, logout
+from django.contrib.auth.views import login, logout, password_reset, password_reset_done, password_reset_confirm, password_reset_complete
 from school.views import *
 from stronghold.decorators import public
 from django.views.generic import RedirectView
 #from django.conf import settings
 
 urlpatterns = [
-    url(r'^account/', include('django.contrib.auth.urls')),
+    #url(r'^account/', include('django.contrib.auth.urls')),
+    url(r'^user/login/$',  public(login),  name='login'),
+    url(r'^user/logout/$',  public(logout),  {'next_page': '/school/'}, name='logout'),
+    url(r'^user/password/reset/$', public(password_reset), {'post_reset_redirect' : '/user/password/reset/done/'}, name="password_reset"),
+    url(r'^user/password/reset/done/$', public(password_reset_done), name='password_reset_done'),
+    url(r'^user/password/reset/(?P<uidb64>[0-9A-Za-z]+)-(?P<token>.+)/$', public(password_reset_confirm), {'post_reset_redirect' : '/user/password/done/'}, name="password_reset_confirm"),
+    url(r'^user/password/done/$', public(password_reset_complete)),
+    url(r'^admin/logout/$', 'django.contrib.auth.views.logout', {'next_page': '/school/'}),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^grappelli/', include('grappelli.urls')),
-    url(r'^accounts/login/$',  public(login),  name='login'),
-    url(r'^accounts/login/$',  public(login),  name='login'),
-    url(r'^account/logout/$', public(logout), {'next_page': '/school/'}, name='logout'),
+    url(r'^accounts/login/$', public(RedirectView.as_view(url='/user/login/'))),
     url(r'^school/', include('school.urls')),
     url(r'^report_builder/', include('report_builder.urls')) ,
     url(r'^$', public(RedirectView.as_view(url='/school/'))),
