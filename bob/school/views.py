@@ -853,8 +853,9 @@ def EmailGroup(request):
         a = EmailList.objects.get(name=selectedId)
         #a = [p.email for p in emailusers.get_email_list()]
         recipients = a.alias + "@mg.flchomegroup.com"
+        
 
-        text_content = strip_tags(message)
+        text_content = strip_tags(message + '\n\n\n' + a.footer )
         a = send_simple_message(sender, recipients, subject, text_content) 
         return redirect('/school/thanks')
 
