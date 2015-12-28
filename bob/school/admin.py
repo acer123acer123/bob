@@ -160,7 +160,7 @@ class SemesterDatesAdmin(admin.ModelAdmin):
     list_filter = ('semester',)
 
 class CourseCatalogAdmin(admin.ModelAdmin):
-    list_display = ('course_name', 'teacher', 'course_type', 'preferred_assistants', 'course_max_size', )
+    list_display = ('course_name', 'teacher', 'course_type', 'preferred_assistants', 'course_max_size', 'id', )
     search_fields = ('course_name',)
 
 class AssistantEnrollAdmin(admin.ModelAdmin):

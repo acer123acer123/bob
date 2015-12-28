@@ -1,0 +1,10 @@
+from school.models import *
+active_semester=Semester.objects.get(pk=7)
+
+# family id = 2
+# family members
+	9	Kim
+	3	Chris
+	11	Mark
+	12	Hannah
+	13	Nathan

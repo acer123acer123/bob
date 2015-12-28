@@ -124,35 +124,50 @@ def active_family_member_head_list(request):
 
 def ScheduleList(request):
     context = RequestContext(request)
-    if request.session.get('active_semester', False):
-        active_semester = request.session['active_semester']
-        semester_is_active = Semester.objects.get(name=active_semester)
-        if not semester_is_active.is_active:
-            return render_to_response('school/schedule/wrong_semester.html', {}, context_instance=RequestContext(request))
-        s_list = Schedule.objects.filter(semester=active_semester)
-        family_student_list = Student.objects.filter(family_member__family=request.user.family).filter(family_member__is_active='True')
-        family_assistant_list = Assistant.objects.filter(family_member__family=request.user.family)
-        fed=Family.objects.filter(name=request.user.family).dates('family_benefits__enrollment_date','day')
-        family_enrollment_date=""
-        for i in fed:
-            family_enrollment_date=i
-
-        for schedule in s_list:
-            schedule.enrolled_family_student_ids = schedule.get_enrolled_family_student_ids(
-                family_student_list, active_semester)
-            schedule.enrolled_family_assistant_ids = schedule.get_enrolled_family_assistant_ids(
-                family_assistant_list, active_semester)
-
-        return render_to_response('school/schedule/list.html', {
-            's_list': s_list,
-            'semester_is_active': semester_is_active,
-            'family_student_list': family_student_list,
-            'family_assistant_list': family_assistant_list,
-            'family_enrollment_date': family_enrollment_date,
-            'today': datetime.now().date(),
-        }, context)
+    if request.method == 'POST':
+        post_data=dict(request.POST.iteritems())
+        post_data.pop("csrfmiddlewaretoken", 0)
+        for key, value in post_data.iteritems():
+            v_list=value.split(':')
+            tp=v_list[0]
+            fm=v_list[1]
+            si=v_list[2]
+            sp=v_list[3]
+            if tp == 'ASST':
+                EnrollAssistant(request, fm, si, sp)
+            else:
+                EnrollStudent(request, fm, si, sp)
+        return redirect('/school/thanks')
     else:
-        return redirect('semester_information')
+        if request.session.get('active_semester', False):
+            active_semester = request.session['active_semester']
+            semester_is_active = Semester.objects.get(name=active_semester)
+            if not semester_is_active.is_active:
+                return render_to_response('school/schedule/wrong_semester.html', {}, context_instance=RequestContext(request))
+            s_list = Schedule.objects.filter(semester=active_semester)
+            family_student_list = Student.objects.filter(family_member__family=request.user.family).filter(family_member__is_active='True')
+            family_assistant_list = Assistant.objects.filter(family_member__family=request.user.family)
+            fed=Family.objects.filter(name=request.user.family).dates('family_benefits__enrollment_date','day')
+            family_enrollment_date=""
+            for i in fed:
+                family_enrollment_date=i
+
+            for schedule in s_list:
+                schedule.enrolled_family_student_ids = schedule.get_enrolled_family_student_ids(
+                    family_student_list, active_semester)
+                schedule.enrolled_family_assistant_ids = schedule.get_enrolled_family_assistant_ids(
+                    family_assistant_list, active_semester)
+
+            return render_to_response('school/schedule/list.html', {
+                's_list': s_list,
+                'semester_is_active': semester_is_active,
+                'family_student_list': family_student_list,
+                'family_assistant_list': family_assistant_list,
+                'family_enrollment_date': family_enrollment_date,
+                'today': datetime.now().date(),
+            }, context)
+        else:
+            return redirect('semester_information')
 
 
 def semester_information(request):
@@ -297,7 +312,8 @@ def EnrollStudent(request, family_member, schedule_id, semester_period_id):
         test_enrollment.delete()
 
     enrollment.save()
-    return redirect('/school/ScheduleList')
+    #return redirect('/school/ScheduleList')
+    return 
 
 def EnrollAssistant(request, family_member, schedule_id, semester_period_id):
     st = Assistant.objects.get(family_member=family_member)
@@ -855,7 +871,7 @@ def EmailGroup(request):
         recipients = a.alias + "@mg.flchomegroup.com"
         
 
-        text_content = strip_tags(message + '\n\n\n' + a.footer )
+        text_content = strip_tags(message + '\n\n\n')
         a = send_simple_message(sender, recipients, subject, text_content) 
         return redirect('/school/thanks')
 
@@ -1067,10 +1083,12 @@ def send_email(request):
         sender    = request.POST.get('sender')
         subject   = request.POST.get('subject', '')
         maillist, space, msubject = subject.partition(' ')
+        a = EmailList.objects.get(name=maillist)
         new_recipient = "%s@mg.flchomegroup.com" % maillist
         #body_plain   = request.POST.get('stripped-text', 'i am not found')
         #body_plain   = request.POST.get('body-plain', 'i am not found')
         body_plain   = request.POST.get('body-html', 'Error: No text in message body. You must add a message.')
+        body_plain = body_plain + "\n\n\n\n\n" + a.footer
         body_html   = request.POST.get('body-html', ' ')
 
         mtest = validate_list(new_recipient)
