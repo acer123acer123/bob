@@ -1151,3 +1151,22 @@ def checkusername(request):
 
     return HttpResponse('%s' % res)
 
+@csrf_exempt
+@public
+def checkFemail(request):
+    email_address = request.POST.get('email_address', False)
+    showLogin = request.POST.get('showLogin', False)
+    if showLogin:
+        showLogin="<a href='http://play.flchomegroup.com/accounts/login/'>Sign in instead.</a>"
+    else:
+        showLogin=""
+    if email_address:
+        u = Family.objects.filter(email_address=email_address).count()
+        if u != 0:
+            res = "<span class='label label-danger'>Email exists</span>"
+        else:
+            res = "<span class='label label-success'>Available</span>"
+    else:
+        res = ""
+
+    return HttpResponse('%s' % res)

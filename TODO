@@ -2,6 +2,7 @@ For migration.....
 school_familymember.username = varchar(255)
 Images and uploaded PDF files in course catalog don't point to right folder (DB change)
 Mailgun - remove footer
+Mailgun - add database column
 
 
 Family Profile 

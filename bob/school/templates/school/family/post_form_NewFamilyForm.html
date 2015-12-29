@@ -9,6 +9,16 @@
         $('#id_cell_phone_number').mask("(999) 999-9999");
         });
 
+function pre_validate() {
+    var username_Text  = document.getElementById("username_status").innerText;
+    var email_Text = document.getElementById("email_address_status").innerText;
+    if (username_Text === "Available" && email_Text === "Available" ) {
+        document.getElementById("sbmt").disabled = false; 
+    }
+    else {
+        document.getElementById("sbmt").disabled = true;
+   }
+}
 </script>
 <script type="text/javascript">
 var previous_username = '';
@@ -23,9 +33,27 @@ function checkUsername() {
 }
 $(function() {
     setInterval("checkUsername()", 3000);
+    setInterval("pre_validate()", 500);
 });
 
 </script>
+<script type="text/javascript">
+var previous_email_address = '';
+var in_ajax = 0;
+function checkEmail() {
+    email_address = $("#id_email_address").val();
+    if ((previous_email_address != email_address) && (email_address != '') && (in_ajax != 1)) {
+        in_ajax = 1;
+        $("#email_address_status").load('/school/check_f_email/', {email_address: email_address, }, function() {in_ajax = 0;});
+    }
+    previous_email_address = email_address;
+}
+$(function() {
+    setInterval("checkEmail()", 3000);
+});
+
+</script>
+
 <div class="alert alert-info">
 Use this page to add your family information.  <br>
 You will not be able to log into the site until the site administrator
@@ -71,7 +99,7 @@ You will then receive an email stating that your account has been activated.
                             </div>
 
                             <div class="form-group {% if form.email_address.errors %}has-error {% endif %}">
-                                <input type="email" name="{{ form.email_address.html_name}}" id="{{ form.email_address.id_for_label}}" class="form-control input-sm" placeholder="Email Address" value="{{ form.email_address.value|default_if_none:"" }}">
+                                <input type="email" name="{{ form.email_address.html_name}}" id="{{ form.email_address.id_for_label}}" class="form-control input-sm" placeholder="Email Address" value="{{ form.email_address.value|default_if_none:"" }}"><span id='email_address_status'></span>
                             </div>
 
                             <div class="form-group {% if form.address1.errors %}has-error {% endif %}">
@@ -117,7 +145,7 @@ You will then receive an email stating that your account has been activated.
                             </div>
 
 
-                            <input type="submit" value="Register" class="btn btn-info btn-block">
+                            <input id="sbmt" type="submit" value="Register" class="btn btn-info btn-block" >
                         </form>
                     </div>
                 </div>
