@@ -3,7 +3,7 @@
 
 {% block head %}
 {% block javascript %}
-    <script src="http://code.jquery.com/jquery.js"></script>
+   <!-- script src="http://code.jquery.com/jquery.js"></script> -->
 <script type="text/javascript" src="/static/js/tinymce/tinymce.min.js"></script>
 <script type="text/javascript">
 tinymce.init({
@@ -35,13 +35,15 @@ tinymce.init({
 
 {% endblock %}
 {% block content %}
+
+
 <script type="text/javascript">
     jQuery(function($){
         $('#id_event_time').mask("99:99 **");
+        $('#id_event_date').mask("99/99/9999");
+        $('#id_event_registration_date').mask("99/99/9999");
         });
 </script>
-
-
 <h1>Events</h1>
 
 <form method="post">{% csrf_token %}
@@ -106,7 +108,7 @@ tinymce.init({
                             <div class="row">
                                 <div class="col-xs-6 col-sm-6 col-md-6">
                                     <div class="form-group {% if form.event_registration_date.errors %}has-error {% endif %}"><b>Registration Ends (MM/DD/YYYY)*</b>
-                                         <input type="text" name="{{ form.event_registration_date.html_name }}" id="{{ form.event_registration_date.id_for_label }}" class="form-control input-sm" value="{{ form.event_registration_date.value }}" >
+                                         <input type="text" name="{{ form.event_registration_date.html_name }}" id="{{ form.event_registration_date.id_for_label }}" class="form-control input-sm" value="{{ form.event_registration_date.value }}">
                                     </div>
                                 </div>
                                 <div class="col-xs-6 col-sm-6 col-md-6">
