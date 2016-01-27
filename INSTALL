@@ -5,52 +5,30 @@ This document describes the steps necessary to install the application
   on a DreamHost web server.  Minor modifications may be required for
   your particular hosting providor.  
 
-# Create domain
+# DreamHost:  Create domain
   Create a new domain on your server. 
   The web folder should be $HOME/public  (i.e. /home/abc/demo.flchomegroup.com/public)
   Enable Passenger
   Select PHP 5.4 FastCGI
   Enable SSH for the account so that you can install / configure the application
+# VPS:  Create users (DreamHost can skip this section)
+  sudo groupadd --system webapps
+  sudo useradd --system --gid webapps --shell /bin/bash --home /webapps/bob.flchomegroup.com bob 
 
-# Install Python (taken in part from http://wiki.dreamhost.com/Django)
-  ssh into the host
+# Create virtual environment
   cd ~
-  mkdir tmp
-  cd tmp
-  wget http://www.python.org/ftp/python/2.7.7/Python-2.7.7.tgz
-  tar zxvf Python-2.7.7.tgz
-  cd Python-2.7.7
-  ./configure --prefix=$HOME/opt/python-2.7.7
-  make
-  make install
-
-  echo 'export PATH=$HOME/opt/python-2.7.7/bin:$PATH' >> ~/.bash_profile; . ~/.bash_profile
-
-
-# Install Pip
-  We install it even if it is installed on the server.
-  cd
-  curl https://bootstrap.pypa.io/get-pip.py > ~/tmp/get-pip.py 
-  python ~/tmp/get-pip.py
-
-# Install & configure virtualenv
-  pip install virtualenv
-  virtualenv $HOME/<domain>/env  (ex:   virtualenv $HOME/demo.flchomegroup.com/env)
-  source $HOME/<domain>/env/bin/activate
+  virtualenv .
+  source bin/activate
 
 # Retrive Application Code
-  cd $HOME/<domain>
-  ls   (you should see env/ and public/)
+  cd ~
+  mkdir git; cd git
   git clone https://github.com/acer123acer123/bob.git
   This downloads the data into the bob/ directory. 
   We need to rename it and then move everything in it up to $HOME/<domain>
-  mv bob to_delete
-  cd to_delete
-  pwd  (you should see $HOME/<domain>/to_delete
-  mv * ..
-  cd ..
-  rm -r to_delete (there are probably some git folders in there)
-  pwd  (you should see $HOME/<domain>)
+  cd ~/git/bob/
+  mv * ~/
+  cd ~
   
 # Install Django apps
   Make sure that you source the virtualenv file (source $HOME/<domain>/env/bin/activate)
@@ -67,24 +45,26 @@ This document describes the steps necessary to install the application
   vi mailgun.py
   modify the api key and the URL to fit your requirements
  
-  mkdir -p $HOME/<domain>/logs
-  mkdir -p $HOME/<domain>/bob/static
+  mkdir -p ~/logs ~bob/static
  
-  cd $HOME/<domain>/bob/bob
+  cd ~/bob
   ./manage.py collectstatic
 
 Copy TinyMCE & FileBrowser to /public/js
   
 
 # Load the database
+  mysql -h mysql.flchomegroup.com -u flchomegroup_p -p flchomegroup_play <flc_sql
   ******************* NEED INFO ***********
 
+# Install & Configure gunicorn
+  cd ~
+  pip install gunicorn
+  cd ~/bob
+  chmod 775 ~/run
+  #Test it out to confirm that it works.  Modify your IP to meet your needs.
+  gunicorn bob.wsgi:application --bind 10.10.10.2:9999
+
+
 # CRONTAB for Post Office
-
-
-# Start the application
-  cd $HOME/<domain>/
-  mkdir tmp
-  pkill python
-  touch tmp/restart.txt
 
