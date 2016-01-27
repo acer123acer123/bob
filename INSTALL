@@ -73,6 +73,7 @@ This document describes the steps necessary to install the application
   cd $HOME/<domain>/bob/bob
   ./manage.py collectstatic
 
+Copy TinyMCE & FileBrowser to /public/js
   
 
 # Load the database
