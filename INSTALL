@@ -35,7 +35,7 @@ This document describes the steps necessary to install the application
   pip install -r ./requirements.txt
 
 # Configure Django application
-  cd $HOME/<domain>/bob/bob/
+  cd ~/bob/bob/
   mv SETTINGS.EXAMPLE settings.py
   vi settings.py
   modify the email and database sections to fit your requirements
@@ -45,7 +45,7 @@ This document describes the steps necessary to install the application
   vi mailgun.py
   modify the api key and the URL to fit your requirements
  
-  mkdir -p ~/logs ~bob/static
+  mkdir -p ~/logs ~/bob/static
  
   cd ~/bob
   ./manage.py collectstatic
@@ -61,10 +61,54 @@ Copy TinyMCE & FileBrowser to /public/js
   cd ~
   pip install gunicorn
   cd ~/bob
+  mkdir ~/run
   chmod 775 ~/run
-  #Test it out to confirm that it works.  Modify your IP to meet your needs.
-  gunicorn bob.wsgi:application --bind 10.10.10.2:9999
+  cd ~/tools
+  mv gunicorn_start ~/bin/gunicorn_start
+  chmod 755 ~/bin/gunicorn_start
+  vi ~/bin/gunicorn_start   # modify paths as necessary
+
+  vi ~/bob/bob/settings.py  # comment out devserver
 
 
 # CRONTAB for Post Office
+
+
+# NGINX
+  cd /etc/nginx/sites-available
+  vi bob
+  upstream test_app_server {
+    server unix:/webapps/bob.flchomegroup.com/run/gunicorn.sock fail_timeout=0;
+  }
+  server # bob.flchomegroup.com
+  {
+    listen 80;
+    expires off;
+    server_name bob.flchomegroup.com;
+
+    location /media {
+      root /webapps/bob.flchomegroup.com/public/;
+    }
+
+    location /static {
+      root /webapps/bob.flchomegroup.com/public/;
+    }
+
+    location /js {
+      root /webapps/bob.flchomegroup.com/public/;
+    }
+
+
+    location /
+    {
+      proxy_pass        http://test_app_server;
+      proxy_redirect    off;
+      proxy_set_header  Host $host;
+      proxy_set_header  X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+  }
+  
+  cd /etc/nginx/sites-enabled
+  ln -s /etc/nginx/sites-available/bob /etc/nginx/sites-enabled/bob
+  service nginx restart
 
