@@ -50,11 +50,18 @@ This document describes the steps necessary to install the application
   cd ~/bob
   ./manage.py collectstatic
 
-Copy TinyMCE & FileBrowser to /public/js
+Copy TinyMCE & FileBrowser to ~/public/static/js
+mkdir ~/public/static/media
   
 
 # Load the database
+  vi ~/.my.cnf
+    [mysqldump]
+    user = flchomegroup_p
+    password = ThisIsBob!
+
   mysql -h mysql.flchomegroup.com -u flchomegroup_p -p flchomegroup_play <flc_sql
+
   ******************* NEED INFO ***********
 
 # Install & Configure gunicorn
