@@ -1125,7 +1125,7 @@ def contact_email(request):
             your_email = form.cleaned_data['your_email']
             message = form.cleaned_data['message']
             try:
-                send_mail(subject, message, your_email, ['chris.ryan.12345@gmail.com'])
+                send_mail(subject, message, your_email, ['kimberly.ryan@gmail.com'])
             except BadHeaderError:
                 return HttpResponse('Invalid header found.')
             return redirect('/school/thanks/')
