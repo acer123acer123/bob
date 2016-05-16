@@ -25,7 +25,11 @@
 	    </td>
 	    <td>{{ s.family_member.gender }}</td>
 	    <td>{{ s.grade }}</td>
-	    <td>{{ s.age }}</td>
+             <td>
+              {% if s.age != None %}
+                {{ s.age }}
+              {% endif %}
+            </td>
 	    <td>
 	    {% for a in s.get_parent_list %}
 	        ({{ a.first_name }})  

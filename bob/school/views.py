@@ -703,7 +703,7 @@ def post_form_NewFamilyForm(request):
         sender = "kimberly.ryan@gmail.com"
         recipients = ('kimberly.ryan@gmail.com')
         text_content = strip_tags(message)
-        #a = send_simple_message(sender, recipients, subject, message) 
+        a = send_simple_message(sender, recipients, subject, message) 
         if reason_for_registration_string.find('co-op') > -1:
             mail.send(
                 [email_address],
@@ -1083,7 +1083,7 @@ def send_email(request):
         sender    = request.POST.get('sender')
         subject   = request.POST.get('subject', '')
         maillist, space, msubject = subject.partition(' ')
-        a = EmailList.objects.get(name=maillist)
+        a = EmailList.objects.get(alias=maillist)
         new_recipient = "%s@mg.flchomegroup.com" % maillist
         #body_plain   = request.POST.get('stripped-text', 'i am not found')
         #body_plain   = request.POST.get('body-plain', 'i am not found')
