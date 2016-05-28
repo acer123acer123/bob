@@ -113,7 +113,7 @@ class FamilyMemberAdmin(UserAdmin):
         ),
     )
 
-    UserAdmin.list_display = ('family', 'first_name', 'last_name', 'username', 'is_staff', 'date_joined', 'is_active',  'family_member_role',)
+    UserAdmin.list_display = ('family', 'first_name', 'last_name', 'email', 'is_staff', 'date_joined', 'is_active',  'family_member_role',)
 
     # The forms to add and change user instances
     form = UserChangeForm
