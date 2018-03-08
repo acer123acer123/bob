@@ -1100,10 +1100,14 @@ def send_email(request):
             mail.attach_alternative(body_html, "text/html")
             mail.send()
         else:
-            recipient = sender
-            subject = "FAILED: " + msubject
-            message = "Your message failed because " + new_recipient + " doesn't exist."
-            a = send_simple_message("postmaster@mg.flchomegroup.com", recipient, subject, message) 
+           subject = "FAILED: " + msubject
+            mail = EmailMultiAlternatives(msubject, body_plain, sender, [sender])
+            for field, value in mail_data.items():
+                mail.attach(value.name, value.read(), value.content_type)
+            mail.content_subtype = "html"
+            body_html = "Your message failed because " + new_recipient + " doesn't exist."
+            mail.attach_alternative(body_html, "text/html")
+            mail.send()
     else:
         subject = "kim_tes this    is     cool! Indeed"
         mlist, space, rest = subject.partition(' ')
