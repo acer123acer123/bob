@@ -569,6 +569,7 @@ class EmailList(models.Model):
     description = models.TextField(blank=True)
     is_active = models.BooleanField(verbose_name="Active")
     is_managed_by_user = models.BooleanField(verbose_name="User Managed")
+    is_based_on_grade = models.BooleanField(verbose_name="Based on Grade")
     footer = models.TextField(blank=True)
 
     objects = EmailListManager()

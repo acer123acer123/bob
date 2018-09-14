@@ -191,7 +191,7 @@ class EventEnrollmentAdmin(admin.ModelAdmin):
     list_display = ('title', 'family', 'count_adult', 'count_child',)
 
 class EmailListAdmin(admin.ModelAdmin):
-    list_display = ('name', 'alias', 'is_active','is_managed_by_user',)
+    list_display = ('name', 'alias', 'is_active','is_managed_by_user','is_based_on_grade')
 
 
 	
